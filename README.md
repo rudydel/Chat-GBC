@@ -32,7 +32,15 @@ on-screen keyboard:
 
 The shipped model (`models/tiny`, 48k parameters) answers questions about
 the history and hardware of the Game Boy, one character every ~2.5 seconds
-on an original Game Boy (half that on a Game Boy Color).
+on an original Game Boy (half that on a Game Boy Color). It reproduces
+about 9 out of 10 of the 405 training questions verbatim (`train_log.txt`),
+and the emulator test confirms the console prints exactly what the Python
+simulator predicts.
+
+```
+> who designed the game boy          > what cpu does the game boy use
+< gunpei yokoi and nintendo r&d1     < a sharp lr35902, an 8-bit chip similar to the z80
+```
 
 ## Quick start
 
@@ -47,7 +55,8 @@ Gambatte, PyBoy) or on a flash cartridge.
 
 Controls: **D-pad** move over the keyboard, **A** press a key, **B**
 backspace (or stop a reply), **START** send, **SELECT** toggle greedy /
-sampled replies.
+sampled replies. Each question starts a fresh context (build with
+`make -C gb EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT` for multi-turn conversations).
 
 ## Rebuilding after the model changed
 

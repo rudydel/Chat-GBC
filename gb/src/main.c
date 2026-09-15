@@ -60,12 +60,20 @@ static void chat(void)
     ui_log_newline();
     ui_log_flush();
 
+#ifdef KEEP_CONTEXT
+    /* multi-turn: keep the conversation in the KV cache while it fits */
     if ((uint16_t)llm_pos() + input_len + 2 + MIN_REPLY > M_T) {
         llm_reset();
         ui_status("(new context)");
     } else {
         ui_status("reading...");
     }
+#else
+    /* every question starts a fresh context: the tiny model answers much more
+     * reliably without earlier turns in its attention window (see docs) */
+    llm_reset();
+    ui_status("reading...");
+#endif
     llm_seed(frame_count ^ (uint16_t)DIV_REG);
 
     llm_feed(TOK_USR);

@@ -167,7 +167,9 @@ mv_neg:
         ld      a,d
         and     h
         inc     a
-        jr      nz,mv_lo_clamp          ; |acc| >= 256 -> below lo
+        jr      nz,mv_lo_clamp          ; high bytes not all ones -> below lo
+        bit     7,l
+        jr      z,mv_lo_clamp           ; -256 <= acc < -128 -> below lo
         ld      a,(_mv_lo)
         ld      c,a
         ld      a,l

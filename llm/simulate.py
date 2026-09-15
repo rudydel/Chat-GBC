@@ -173,11 +173,12 @@ class IntModel:
             logits = self.forward(t)
         return out
 
-    def chat_reply(self, question, max_new=80, sample=False, rng=None, min_reply=16):
-        """Same context-management policy as the ROM: keep the conversation in
-        the cache while it fits, otherwise start over."""
+    def chat_reply(self, question, max_new=80, sample=False, rng=None, min_reply=16, keep_context=False):
+        """Same context-management policy as the ROM. Default: every question
+        starts a fresh context. keep_context=True mirrors a ROM built with
+        -DKEEP_CONTEXT (conversation kept in the cache while it fits)."""
         ids = tok.format_turn(question)
-        if self.pos + len(ids) + min_reply > self.T:
+        if not keep_context or self.pos + len(ids) + min_reply > self.T:
             self.reset()
         return self.generate(ids, max_new=max_new, sample=sample, rng=rng)
 

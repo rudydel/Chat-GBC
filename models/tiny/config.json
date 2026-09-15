@@ -1,0 +1,13 @@
+{
+  "name": "tiny",
+  "vocab_size": 54,
+  "d_model": 48,
+  "n_layers": 2,
+  "n_heads": 3,
+  "d_ff": 96,
+  "ctx": 128,
+  "e_res": 10,
+  "temperature": 0.8,
+  "tie_lm_head": false,
+  "notes": "~48k parameters, default model shipped in the ROM (about 2.5 s per character on a DMG)"
+}

@@ -37,6 +37,9 @@ $(OBJ)/%.o: %.s
 	@mkdir -p $(dir $@)
 	$(LCC) -c -o $@ $<
 
+# header dependencies written by sdcc (-Wf-MMD): a new gen/model_config.h rebuilds llm.o etc.
+-include $(OBJS:.o=.d)
+
 $(BUILD)/$(PROJECT).gb: $(OBJS)
 	$(LCC) $(LCCFLAGS) -o $@ $(OBJS)
 	python3 ../tools/check_map.py $(BUILD)/$(PROJECT).map

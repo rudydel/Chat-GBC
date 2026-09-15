@@ -35,9 +35,13 @@ logits = int7( h / rms(h) * 2^4 ) @ Wlm           int32, argmax or sampled
 
 Character-level vocabulary of 54 tokens (`llm/tokenizer.py`): 4 specials
 (`<pad> <eos> <usr> <bot>`), space, a–z, 0–9 and 13 punctuation marks. A
-conversation is `<usr> question <bot> answer <eos> <usr> ...`, and the ROM
-keeps the whole conversation in the KV cache until the context (128
-tokens) would overflow, then starts a fresh context.
+conversation is `<usr> question <bot> answer <eos>`. By default the ROM
+starts a fresh context for every question; built with `-DKEEP_CONTEXT`
+(`EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT`) it keeps the whole conversation in the
+KV cache until the context (128 tokens) would overflow. The model is
+trained on packed multi-turn windows either way, but with 48k parameters
+earlier turns hurt more than they help (measured exact recall on the
+shipped model: 95% fresh vs 62% multi-turn).
 
 Default size (`configs/tiny.json`): d_model 48, 2 layers, 3 heads of 16,
 d_ff 96, context 128 → 48,432 parameters, ~40k multiply-accumulates per
