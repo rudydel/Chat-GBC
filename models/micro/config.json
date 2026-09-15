@@ -1,0 +1,13 @@
+{
+  "name": "micro",
+  "vocab_size": 54,
+  "d_model": 64,
+  "n_layers": 3,
+  "n_heads": 4,
+  "d_ff": 128,
+  "ctx": 112,
+  "e_res": 10,
+  "temperature": 0.8,
+  "tie_lm_head": false,
+  "notes": "~114k parameters, better recall, 8 SRAM banks (64 KiB cart RAM), ctx 112 so the K cache fits a bank; slow on a DMG, use a Game Boy Color"
+}

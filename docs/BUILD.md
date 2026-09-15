@@ -39,8 +39,9 @@ be built (and CI can build it) without PyTorch.
 `gb/Makefile` sets MBC5 + RAM + battery (`-Wl-yt0x1B`), automatic ROM size
 and the SRAM size from `model.mk` (2 banks of 8 KiB per layer: one for the
 K cache, one for the V cache). The `tiny` model needs 32 KiB SRAM and a
-128 KiB ROM. Flash cartridges (EverDrive, EZ-Flash Jr, etc.) and all
-emulators support this.
+128 KiB ROM; `micro` needs 6 SRAM banks and is declared as 128 KiB SRAM
+(makebin only accepts 1, 4 or 16 banks) with a 256 KiB ROM. Flash
+cartridges (EverDrive, EZ-Flash Jr, etc.) and all emulators support this.
 
 `tools/check_map.py` runs after linking and fails the build if bank-0 code
 grows into the square table at 0x3E00 or WRAM runs into the stack.

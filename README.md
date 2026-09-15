@@ -67,7 +67,9 @@ python3 -m llm.export models/tiny/ckpt.pt   # writes gb/gen/* and models/tiny/mo
 make -C gb                                  # -> gb/build/chatgbc.gb
 ```
 
-or simply `make rom` (`MODEL=nano` / `MODEL=micro` for the other configs).
+or simply `make rom` (`MODEL=micro` for the larger 112k-parameter model,
+prebuilt as `gb/build/chatgbc-micro.gb`: 100% fact recall, 5 s per
+character, needs a 128 KiB-SRAM cartridge; `MODEL=nano` for the smallest).
 `make test` then drives the ROM in an emulator and verifies that the
 Game Boy produces exactly the same characters as the Python simulator.
 
@@ -92,7 +94,7 @@ data/gameboy/    dataset: facts.jsonl, corpus/*.txt, scripts/fetch_web.py
 docs/            ARCHITECTURE.md, BUILD.md, FINETUNING.md
 gb/              ROM sources: src/ (C + asm), gen/ (generated from the model), build/chatgbc.gb
 llm/             tokenizer, quant spec, model, data, train, export, simulate, chat
-models/tiny/     shipped checkpoint, config, integer model (model_int.json), training log
+models/          tiny (shipped) and micro checkpoints, configs, integer models, training logs
 tools/           gbdk_setup.sh, fontgen.py, emu_test.py, selftest.py, check_map.py
 ```
 

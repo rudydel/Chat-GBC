@@ -85,11 +85,15 @@ answer looks right there, it will look the same on the console.
 
 ## 5. Model configurations
 
-| config | params | d_model | layers | heads | d_ff | ctx | SRAM | s/char on DMG (approx.) |
-|--------|--------|---------|--------|-------|------|-----|------|------------------------|
-| nano   | 23k    | 32      | 2      | 2     | 64   | 96  | 32 KiB | ~1.2 |
-| tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 32 KiB | ~2.5 |
-| micro  | 114k   | 64      | 3      | 4     | 128  | 112 | 64 KiB | ~6 |
+| config | params | d_model | layers | heads | d_ff | ctx | ROM / SRAM | s/char on DMG | exact recall |
+|--------|--------|---------|--------|-------|------|-----|------------|---------------|--------------|
+| nano   | 23k    | 32      | 2      | 2     | 64   | 96  | 128 KiB / 32 KiB | ~1.2 | (not trained) |
+| tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 128 KiB / 32 KiB | ~2.2 | 88% |
+| micro  | 112k   | 64      | 3      | 4     | 128  | 112 | 256 KiB / 128 KiB | ~5.2 | 100% |
+
+`micro` needs 6 SRAM banks; the cartridge header declares 128 KiB because
+the header only encodes 8, 32 or 128 KiB. Both trained models are in
+`models/`; `gb/build/chatgbc-micro.gb` is the prebuilt micro ROM.
 
 Constraints (checked by `ModelConfig.validate`): head size is 16, `d_model`,
 `d_ff` and `ctx` are multiples of 16, at most 8 layers, and one layer's K or

@@ -194,8 +194,9 @@ def export(m: dict, out_dir: str):
 
     # ---- header
     ram_banks = 2 * L
-    # makebin -ya takes the number of 8 KiB SRAM banks (1, 4, 8 or 16 -> header codes 02, 03, 05, 04)
-    ram_code = 1 if ram_banks <= 1 else 4 if ram_banks <= 4 else 8 if ram_banks <= 8 else 16
+    # makebin -ya takes the number of 8 KiB SRAM banks and only accepts 1, 4 or 16
+    # (header codes 02, 03, 04); more than 4 banks therefore declares a 128 KiB cartridge
+    ram_code = 1 if ram_banks <= 1 else 4 if ram_banks <= 4 else 16
     assert ram_banks <= 16, "at most 8 layers (16 SRAM banks of 8 KiB)"
     assert T * D + T * H * 2 <= 8192, "K cache + row sums must fit one 8 KiB SRAM bank"
     assert D * T + D * 4 + D * 2 <= 8192, "V cache + sums must fit one 8 KiB SRAM bank"
