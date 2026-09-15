@@ -58,6 +58,12 @@ class ModelConfig:
             "d_model, d_ff and ctx must be multiples of 16 (dot-product entry granularity)"
         assert 16 <= self.ctx <= 256
         assert self.vocab_size == VOCAB_SIZE
+        assert self.n_layers <= 8, "at most 8 layers (16 SRAM banks of 8 KiB)"
+        # per layer: one 8 KiB SRAM bank for K + row sums, one for V + sums (see gb/src/llm.c)
+        assert self.ctx * self.d_model + self.ctx * self.n_heads * 2 <= 8192, \
+            "K cache (ctx*d_model) + row sums (ctx*n_heads*2) must fit one 8 KiB SRAM bank: reduce ctx"
+        assert self.d_model * self.ctx + 6 * self.d_model <= 8192, \
+            "V cache (d_model*ctx) + sums (6*d_model) must fit one 8 KiB SRAM bank: reduce ctx"
 
     @staticmethod
     def load(path):

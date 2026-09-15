@@ -89,10 +89,12 @@ answer looks right there, it will look the same on the console.
 |--------|--------|---------|--------|-------|------|-----|------|------------------------|
 | nano   | 23k    | 32      | 2      | 2     | 64   | 96  | 32 KiB | ~1.2 |
 | tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 32 KiB | ~2.5 |
-| micro  | 114k   | 64      | 3      | 4     | 128  | 128 | 64 KiB | ~6 |
+| micro  | 114k   | 64      | 3      | 4     | 128  | 112 | 64 KiB | ~6 |
 
 Constraints (checked by `ModelConfig.validate`): head size is 16, `d_model`,
-`d_ff` and `ctx` are multiples of 16, `ctx` ≤ 256, at most 8 layers.
+`d_ff` and `ctx` are multiples of 16, at most 8 layers, and one layer's K or
+V cache plus its row sums must fit an 8 KiB SRAM bank (`ctx * d_model` ≤
+roughly 7.5 KiB, e.g. ctx 128 at d_model 48, ctx 112 at d_model 64).
 
 ## 6. Hyper-parameters
 
