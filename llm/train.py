@@ -35,17 +35,25 @@ def lr_at(step, total, base, warmup=100, final_ratio=0.1):
     return base * (final_ratio + (1 - final_ratio) * 0.5 * (1 + math.cos(math.pi * p)))
 
 
-def run_phase(model, stream, steps, batch, base_lr, log, name, wd=0.01, grad_clip=1.0, log_every=100):
-    if steps <= 0:
-        return
+def make_optimizer(model, base_lr, wd):
     decay, no_decay = [], []
     for n, p in model.named_parameters():
         (no_decay if n.endswith("gain") or "emb" in n else decay).append(p)
-    opt = torch.optim.AdamW([{"params": decay, "weight_decay": wd}, {"params": no_decay, "weight_decay": 0.0}],
-                            lr=base_lr, betas=(0.9, 0.95))
+    return torch.optim.AdamW([{"params": decay, "weight_decay": wd}, {"params": no_decay, "weight_decay": 0.0}],
+                             lr=base_lr, betas=(0.9, 0.95))
+
+
+def run_phase(model, stream, steps, batch, base_lr, log, name, wd=0.01, grad_clip=1.0, log_every=100):
+    """One training phase with cosine LR decay and a divergence guard: if the
+    smoothed loss climbs well above its best value, the best weights are
+    restored and the learning rate is halved (tiny quantized models can blow
+    up at the high learning rates they otherwise need)."""
+    if steps <= 0:
+        return
+    opt = make_optimizer(model, base_lr, wd)
     model.train()
     t0 = time.time()
-    ema = None
+    ema, best_ema, best_state = None, None, None
     for step in range(steps):
         lr = lr_at(step, steps, base_lr)
         for g in opt.param_groups:
@@ -62,6 +70,20 @@ def run_phase(model, stream, steps, batch, base_lr, log, name, wd=0.01, grad_cli
             print(msg)
             log.write(msg + "\n")
             log.flush()
+            if step >= 200:
+                if best_ema is None or ema < best_ema:
+                    best_ema = ema
+                    best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
+                elif ema > best_ema * 1.3 + 0.2:
+                    base_lr *= 0.5
+                    model.load_state_dict(best_state)
+                    opt = make_optimizer(model, base_lr, wd)
+                    ema = best_ema
+                    msg = f"[{name}] divergence detected (ema {ema:.3f} vs best {best_ema:.3f}): restored best weights, lr -> {base_lr:.1e}"
+                    print(msg)
+                    log.write(msg + "\n")
+    if best_state is not None and best_ema is not None and ema > best_ema * 1.3 + 0.2:
+        model.load_state_dict(best_state)
     model.eval()
 
 

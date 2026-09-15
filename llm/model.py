@@ -93,8 +93,11 @@ def fake_quant(x, e: int, qmax: int):
     if not QUANT_ENABLED:
         return x
     scale = 2.0 ** e
-    xq = torch.clamp(torch.floor(x * scale + 0.5), -qmax, qmax) / scale
-    return x + (xq - x).detach()
+    # clamp first (differentiable: zero gradient outside the representable range, so
+    # activations cannot run away unnoticed), then round with a straight-through estimator
+    xc = torch.clamp(x, -qmax / scale, qmax / scale)
+    xq = torch.floor(xc * scale + 0.5) / scale
+    return xc + (xq - xc).detach()
 
 
 class ActQuant(nn.Module):
