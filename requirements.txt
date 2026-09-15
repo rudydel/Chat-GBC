@@ -1,0 +1,5 @@
+# Training / export / simulation
+torch>=2.1
+numpy>=1.24
+# Emulator based tests (tools/emu_test.py, tools/selftest.py)
+pyboy>=2.0

@@ -1,0 +1,26 @@
+name: build-rom
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install GBDK-2020
+        run: tools/gbdk_setup.sh
+      - name: Build the ROM from the committed generated sources
+        run: make -C gb
+      - name: Install emulator test dependencies
+        run: pip install numpy pyboy
+      - name: Run the ROM in PyBoy and compare with the simulator
+        run: python3 tools/emu_test.py gb/build/chatgbc.gb "hello" "when was the game boy released" --model models/tiny/model_int.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatgbc-rom
+          path: gb/build/chatgbc.gb

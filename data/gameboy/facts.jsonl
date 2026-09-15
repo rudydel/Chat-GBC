@@ -1,0 +1,144 @@
+# Game Boy facts as question/answer pairs. Each line: {"q": [question variants], "a": "answer"}.
+# Answers are short because the Game Boy prints about one character every 2 seconds.
+{"q": ["when was the game boy released", "what year did the game boy come out", "release date of the game boy", "when did nintendo release the game boy", "when was the original game boy launched"], "a": "april 21, 1989 in japan"}
+{"q": ["when was the game boy released in north america", "when did the game boy come out in the us", "us release date of the game boy", "when did the game boy launch in america"], "a": "july 31, 1989"}
+{"q": ["when was the game boy released in europe", "european release date of the game boy", "when did the game boy come out in europe"], "a": "september 28, 1990"}
+{"q": ["who designed the game boy", "who created the game boy", "who invented the game boy", "who is the designer of the game boy", "who made the game boy"], "a": "gunpei yokoi and nintendo r&d1"}
+{"q": ["who was gunpei yokoi", "who is gunpei yokoi", "tell me about gunpei yokoi"], "a": "the nintendo engineer who designed the game boy"}
+{"q": ["when was gunpei yokoi born", "gunpei yokoi birth date", "what year was gunpei yokoi born"], "a": "september 10, 1941"}
+{"q": ["when did gunpei yokoi die", "how did gunpei yokoi die", "what happened to gunpei yokoi"], "a": "he died in a car accident on october 4, 1997"}
+{"q": ["what else did gunpei yokoi create", "what did gunpei yokoi invent", "other inventions of gunpei yokoi"], "a": "game & watch, the d-pad, metroid and the virtual boy"}
+{"q": ["what was yokoi's design philosophy", "what is lateral thinking with withered technology", "gunpei yokoi philosophy"], "a": "lateral thinking with withered technology: cheap, mature parts used in new ways"}
+{"q": ["which company made the game boy", "who manufactured the game boy", "what company released the game boy"], "a": "nintendo"}
+{"q": ["what does dmg stand for", "what is dmg", "meaning of dmg on the game boy", "why is the game boy called dmg"], "a": "dot matrix game, the model number is dmg-01"}
+{"q": ["what is the model number of the original game boy", "original game boy model number"], "a": "dmg-01"}
+{"q": ["what cpu does the game boy use", "what processor is in the game boy", "game boy cpu", "which chip powers the game boy"], "a": "a sharp lr35902, an 8-bit chip similar to the z80"}
+{"q": ["how fast is the game boy cpu", "game boy clock speed", "what is the clock rate of the game boy"], "a": "4.19 mhz"}
+{"q": ["how much ram does the game boy have", "game boy memory", "how much work ram is in the game boy"], "a": "8 kb of work ram and 8 kb of video ram"}
+{"q": ["what is the game boy screen resolution", "how many pixels does the game boy screen have", "game boy resolution", "screen size in pixels of the game boy"], "a": "160 by 144 pixels"}
+{"q": ["how many colors can the game boy display", "how many shades does the game boy screen show", "game boy colors", "what colors does the original game boy have"], "a": "4 shades of greenish gray"}
+{"q": ["what type of screen does the game boy have", "game boy display type", "is the game boy screen backlit"], "a": "a reflective stn lcd with no backlight"}
+{"q": ["how big is the game boy screen", "game boy screen size in inches", "screen diagonal of the game boy"], "a": "2.6 inches"}
+{"q": ["what batteries does the game boy use", "how many batteries does the game boy need", "game boy battery type", "what powers the game boy"], "a": "four aa batteries"}
+{"q": ["how long does the game boy battery last", "game boy battery life", "how many hours does a game boy run on batteries"], "a": "about 15 to 30 hours"}
+{"q": ["how many sound channels does the game boy have", "game boy audio", "what is the game boy sound chip like", "game boy sound channels"], "a": "4 channels: two pulse, one wave and one noise"}
+{"q": ["does the game boy have stereo sound", "is game boy sound stereo or mono"], "a": "stereo through headphones, mono from the speaker"}
+{"q": ["how much did the game boy cost at launch", "game boy launch price", "what was the price of the game boy", "how much was the game boy in 1989"], "a": "12,500 yen in japan and 89.99 dollars in the us"}
+{"q": ["how many game boys were sold", "game boy sales", "how many units did the game boy sell", "total game boy sales"], "a": "118.69 million game boy and game boy color units"}
+{"q": ["what game came with the game boy", "which game was bundled with the game boy", "game boy pack-in game", "what game was included with the game boy"], "a": "tetris, in north america and europe"}
+{"q": ["what were the game boy launch titles in japan", "japanese launch games of the game boy", "first game boy games"], "a": "super mario land, alleyway, baseball and yakuman"}
+{"q": ["what is the best selling game boy game", "most sold game boy game", "which game boy game sold the most"], "a": "tetris, with about 35 million copies"}
+{"q": ["how many copies did tetris sell on the game boy", "game boy tetris sales"], "a": "about 35 million copies"}
+{"q": ["who created tetris", "who invented tetris", "who made tetris"], "a": "alexey pajitnov, in 1984"}
+{"q": ["who got the tetris rights for nintendo", "who secured tetris for the game boy", "how did nintendo get tetris"], "a": "henk rogers negotiated the handheld rights"}
+{"q": ["what is the tetris theme song", "what is the music in game boy tetris", "name of the tetris type a music"], "a": "korobeiniki, a russian folk song"}
+{"q": ["how many game boy games were released", "how many games exist for the game boy", "number of game boy games"], "a": "more than 1000 games"}
+{"q": ["what is the game boy pocket", "tell me about the game boy pocket", "what is different about the game boy pocket"], "a": "a smaller, lighter game boy from 1996 with a clearer screen"}
+{"q": ["when was the game boy pocket released", "game boy pocket release date", "what year did the game boy pocket come out"], "a": "july 21, 1996 in japan"}
+{"q": ["what batteries does the game boy pocket use", "game boy pocket battery", "how many batteries in the game boy pocket"], "a": "two aaa batteries"}
+{"q": ["what is the game boy light", "tell me about the game boy light", "did the game boy have a backlight"], "a": "a japan only game boy from 1998 with a backlit screen"}
+{"q": ["when was the game boy light released", "game boy light release date"], "a": "april 14, 1998, only in japan"}
+{"q": ["when was the game boy color released", "game boy color release date", "what year did the game boy color come out", "when did nintendo release the game boy color"], "a": "october 21, 1998 in japan, november 1998 in the us and europe"}
+{"q": ["what is the game boy color", "tell me about the game boy color", "what did the game boy color add"], "a": "a 1998 game boy with a color screen and a faster cpu"}
+{"q": ["how many colors can the game boy color display", "game boy color palette", "game boy color number of colors"], "a": "56 colors at once from a palette of 32,768"}
+{"q": ["how fast is the game boy color cpu", "game boy color clock speed", "game boy color processor"], "a": "up to 8.4 mhz, double the original"}
+{"q": ["how much ram does the game boy color have", "game boy color memory"], "a": "32 kb of work ram and 16 kb of video ram"}
+{"q": ["can the game boy color play old game boy games", "is the game boy color backwards compatible", "does the game boy color run original games"], "a": "yes, it plays all original game boy games"}
+{"q": ["does the game boy color have an infrared port", "game boy color infrared", "what is the ir port on the game boy color for"], "a": "yes, for wireless data exchange between two units"}
+{"q": ["when was the game boy discontinued", "when did nintendo stop making the game boy", "end of the game boy"], "a": "in 2003"}
+{"q": ["when was the game boy advance released", "game boy advance release date", "what year did the game boy advance come out"], "a": "march 21, 2001 in japan, june 2001 in the us and europe"}
+{"q": ["what cpu does the game boy advance use", "game boy advance processor"], "a": "a 32-bit arm7tdmi at 16.78 mhz"}
+{"q": ["what came after the game boy color", "what replaced the game boy color", "successor of the game boy color"], "a": "the game boy advance in 2001"}
+{"q": ["what is the super game boy", "tell me about the super game boy", "what does the super game boy do"], "a": "a snes cartridge adapter that plays game boy games on a tv"}
+{"q": ["when was the super game boy released", "super game boy release date"], "a": "june 14, 1994"}
+{"q": ["what is the game boy camera", "tell me about the game boy camera", "what does the game boy camera do"], "a": "a 1998 cartridge with a camera that takes 128 by 112 pixel photos"}
+{"q": ["when was the game boy camera released", "game boy camera release date"], "a": "february 21, 1998 in japan"}
+{"q": ["what record did the game boy camera hold", "game boy camera guinness record"], "a": "it was the smallest digital camera in the guinness book in 1999"}
+{"q": ["what is the game boy printer", "tell me about the game boy printer", "what does the game boy printer do"], "a": "a small thermal printer from 1998 that prints on sticker paper"}
+{"q": ["what is the link cable", "what does the game link cable do", "how do two game boys connect", "game boy multiplayer"], "a": "a cable that connects two game boys for multiplayer and trading"}
+{"q": ["how many players can play on the game boy", "game boy four player", "can four game boys be linked"], "a": "two normally, four with the four player adapter"}
+{"q": ["what is a game pak", "what are game boy cartridges called", "game boy cartridge name"], "a": "game pak is nintendo's name for the cartridge"}
+{"q": ["how big can a game boy cartridge be", "maximum size of a game boy game", "game boy rom size limit"], "a": "up to 8 megabytes with the mbc5 mapper"}
+{"q": ["what is an mbc", "what is a memory bank controller", "what does mbc mean on the game boy", "game boy mbc"], "a": "a memory bank controller chip that lets cartridges exceed 32 kb"}
+{"q": ["how do game boy games save", "how does the game boy save games", "game boy save data"], "a": "with battery backed sram inside the cartridge"}
+{"q": ["what happens when the game boy boots", "what is the game boy boot logo", "why does the nintendo logo scroll on the game boy"], "a": "the boot rom scrolls the nintendo logo and checks it against the cartridge"}
+{"q": ["what colors were the original game boy", "what color is the game boy", "original game boy color scheme"], "a": "gray with magenta a and b buttons"}
+{"q": ["what is play it loud", "what was the play it loud series", "colored game boys"], "a": "a 1995 line of game boys in red, yellow, green, blue, black, white and clear"}
+{"q": ["when was play it loud released", "play it loud release date"], "a": "1995"}
+{"q": ["what is the d-pad", "who invented the d-pad", "where does the d-pad come from"], "a": "the cross shaped control pad, invented by gunpei yokoi for game & watch"}
+{"q": ["what are the game boy buttons", "how many buttons does the game boy have", "game boy controls"], "a": "a d-pad, a, b, start and select"}
+{"q": ["how much does the game boy weigh", "game boy weight", "how heavy is the game boy"], "a": "about 220 grams with batteries"}
+{"q": ["how big is the game boy", "game boy dimensions", "size of the game boy"], "a": "90 by 148 by 32 millimeters"}
+{"q": ["what were the game boy competitors", "what competed with the game boy", "game boy rivals", "which handhelds competed with the game boy"], "a": "the atari lynx, the sega game gear and the turboexpress"}
+{"q": ["why did the game boy beat the game gear", "why was the game boy so successful", "why did the game boy win"], "a": "long battery life, a low price and tetris"}
+{"q": ["what is the gulf war game boy", "game boy that survived a bombing", "tell me about the burned game boy"], "a": "a game boy burned in a 1991 gulf war bombing that still plays tetris"}
+{"q": ["where is the gulf war game boy", "where can i see the burned game boy"], "a": "it was displayed at the nintendo store in new york"}
+{"q": ["was the game boy ever in space", "game boy in space", "did a game boy fly in space"], "a": "yes, cosmonaut aleksandr serebrov played tetris on one in 1993"}
+{"q": ["when was pokemon red released", "when did pokemon red and green come out", "pokemon red release date", "when was the first pokemon game released"], "a": "february 27, 1996 in japan"}
+{"q": ["when was pokemon red released in the us", "when did pokemon red and blue come out in america", "pokemon red and blue us release"], "a": "september 28, 1998"}
+{"q": ["who created pokemon", "who made pokemon", "who invented pokemon"], "a": "satoshi tajiri and game freak"}
+{"q": ["how many copies did pokemon red and blue sell", "pokemon red blue sales", "pokemon red and green sales"], "a": "over 31 million copies"}
+{"q": ["when was pokemon yellow released", "pokemon yellow release date"], "a": "september 12, 1998 in japan"}
+{"q": ["when was pokemon gold and silver released", "pokemon gold release date", "when did pokemon gold come out"], "a": "november 21, 1999 in japan"}
+{"q": ["how does pokemon gold keep time", "why does pokemon gold have a clock", "what chip is in pokemon gold and silver"], "a": "an mbc3 mapper with a real time clock"}
+{"q": ["when was super mario land released", "super mario land release date", "first mario game on the game boy"], "a": "april 21, 1989, with the game boy"}
+{"q": ["who produced super mario land", "who made super mario land"], "a": "gunpei yokoi and nintendo r&d1"}
+{"q": ["when was super mario land 2 released", "super mario land 2 release date", "6 golden coins release date"], "a": "october 21, 1992 in japan"}
+{"q": ["which game introduced wario", "where did wario first appear", "wario first game"], "a": "super mario land 2: 6 golden coins in 1992"}
+{"q": ["when was wario land released", "wario land release date", "what is wario land"], "a": "wario land: super mario land 3 came out in 1994"}
+{"q": ["when was link's awakening released", "zelda link's awakening release date", "first zelda on the game boy"], "a": "june 6, 1993 in japan"}
+{"q": ["what is link's awakening dx", "when was link's awakening dx released"], "a": "a 1998 color version of link's awakening for the game boy color"}
+{"q": ["what is kirby's dream land", "when was kirby's dream land released", "first kirby game"], "a": "the first kirby game, released april 27, 1992"}
+{"q": ["who created kirby", "who made kirby", "who invented kirby"], "a": "masahiro sakurai at hal laboratory"}
+{"q": ["why was kirby white on the box", "what color is kirby", "kirby box color"], "a": "kirby is pink, but the american box showed him white"}
+{"q": ["when was metroid 2 released", "metroid ii release date", "metroid 2 return of samus"], "a": "november 1991 in north america"}
+{"q": ["what is donkey kong 94", "when was donkey kong for game boy released", "donkey kong game boy 1994"], "a": "a 1994 puzzle platformer with super game boy enhancements"}
+{"q": ["what is kirby tilt n tumble", "which game boy game has motion controls", "game boy accelerometer game"], "a": "a 2000 game boy color game with an accelerometer in the cartridge"}
+{"q": ["what is the game boy advance sp", "when was the game boy advance sp released"], "a": "a 2003 clamshell game boy advance with a lit screen"}
+{"q": ["what is the game boy micro", "when was the game boy micro released"], "a": "a tiny game boy advance released in 2005"}
+{"q": ["how many game boy advance units were sold", "game boy advance sales"], "a": "81.51 million"}
+{"q": ["what is the game boy", "what is a game boy", "tell me about the game boy", "describe the game boy"], "a": "an 8-bit handheld game console made by nintendo in 1989"}
+{"q": ["what is game & watch", "tell me about game and watch", "what came before the game boy"], "a": "nintendo's lcd handhelds from 1980, designed by gunpei yokoi"}
+{"q": ["what is nintendo r&d1", "what was nintendo research and development 1", "which nintendo team made the game boy"], "a": "the nintendo team led by gunpei yokoi that made the game boy"}
+{"q": ["who was satoru okada", "what did satoru okada do", "who was the game boy hardware lead"], "a": "the r&d1 engineer who led the game boy hardware design"}
+{"q": ["what is the game boy screen color", "why is the game boy screen green", "pea soup screen"], "a": "an olive green tint often called pea soup"}
+{"q": ["why does the game boy screen blur", "game boy ghosting", "game boy screen smear"], "a": "the slow stn lcd blurs moving objects"}
+{"q": ["what is the game boy link port", "what is the port on the game boy for", "game boy serial port"], "a": "the game link port for the link cable"}
+{"q": ["does the game boy have a headphone jack", "game boy headphones"], "a": "yes, a 3.5 mm stereo headphone jack"}
+{"q": ["what is the contrast wheel on the game boy", "game boy contrast dial"], "a": "a wheel on the left side that adjusts the lcd contrast"}
+{"q": ["what is the game boy speaker like", "game boy speaker"], "a": "a small mono speaker with a volume wheel"}
+{"q": ["how many game boy pockets were sold", "was the game boy pocket successful"], "a": "it sold well and kept the game boy alive until the color model"}
+{"q": ["what is the game boy color's screen", "game boy color screen type", "game boy color resolution"], "a": "a 160 by 144 reflective tft color screen"}
+{"q": ["was the game boy color backlit", "does the game boy color have a backlight"], "a": "no, it has no backlight"}
+{"q": ["what batteries does the game boy color use", "game boy color batteries"], "a": "two aa batteries"}
+{"q": ["how long does the game boy color battery last", "game boy color battery life"], "a": "about 10 hours"}
+{"q": ["what are game boy color exclusive games", "what does a black cartridge mean", "game boy color cartridge colors"], "a": "clear black cartridges are color only, clear ones run on both"}
+{"q": ["when was the game boy released in japan", "japanese launch of the game boy"], "a": "april 21, 1989"}
+{"q": ["how many game boys sold in the first weeks in america", "early us game boy sales"], "a": "a million units in a few weeks"}
+{"q": ["what was the game boy's biggest rival", "was the atari lynx better than the game boy", "atari lynx vs game boy"], "a": "the atari lynx had color and a backlight but poor battery life"}
+{"q": ["when was the sega game gear released", "sega game gear release"], "a": "october 1990 in japan"}
+{"q": ["what is the turboexpress", "nec turboexpress"], "a": "a 1990 handheld by nec that played turbografx-16 games"}
+{"q": ["what does the game boy boot sound like", "game boy startup sound"], "a": "a short ping when the nintendo logo lands"}
+{"q": ["what is a flash cart", "how do people make new game boy games", "homebrew game boy"], "a": "a cartridge that loads homebrew games, made with tools like gbdk"}
+{"q": ["what is gbdk", "how to program the game boy in c"], "a": "the game boy development kit, a c compiler for the game boy"}
+{"q": ["what language were game boy games written in", "how were game boy games programmed"], "a": "mostly in assembly language"}
+{"q": ["what is the sm83", "what is the game boy cpu core called"], "a": "the cpu core of the sharp lr35902"}
+{"q": ["is the game boy cpu a z80", "game boy z80"], "a": "no, it is a sharp chip similar to both the z80 and the 8080"}
+{"q": ["how many sprites can the game boy show", "game boy sprite limit"], "a": "40 sprites, 10 per line"}
+{"q": ["how big are game boy tiles", "game boy tile size"], "a": "8 by 8 pixels"}
+{"q": ["what is the game boy refresh rate", "game boy frame rate"], "a": "about 59.7 frames per second"}
+{"q": ["who was the president of nintendo when the game boy launched", "nintendo president in 1989"], "a": "hiroshi yamauchi"}
+{"q": ["what is nintendo", "tell me about nintendo"], "a": "a japanese game company founded in 1889 in kyoto"}
+{"q": ["when was nintendo founded", "how old is nintendo"], "a": "september 23, 1889"}
+{"q": ["who founded nintendo", "nintendo founder"], "a": "fusajiro yamauchi"}
+{"q": ["what did yokoi do after nintendo", "koto laboratory", "what is the wonderswan"], "a": "he founded koto laboratory and designed bandai's wonderswan"}
+{"q": ["when did gunpei yokoi leave nintendo", "yokoi left nintendo"], "a": "august 1996"}
+{"q": ["what is the virtual boy", "tell me about the virtual boy"], "a": "a 1995 3d tabletop console by yokoi that flopped"}
+{"q": ["what is tetris", "tell me about tetris"], "a": "a falling block puzzle game from 1984"}
+{"q": ["what is pokemon", "tell me about pokemon"], "a": "a monster collecting game series that started on the game boy"}
+{"q": ["are you a game boy", "what are you", "who are you", "what is chat gbc"], "a": "i am a tiny language model running on a game boy"}
+{"q": ["hello", "hi", "hey", "hi there", "good morning"], "a": "hello! ask me about the game boy"}
+{"q": ["thanks", "thank you", "thx"], "a": "you're welcome!"}
+{"q": ["bye", "goodbye", "see you"], "a": "goodbye!"}
+{"q": ["what can you do", "help", "what do you know"], "a": "i answer questions about the game boy"}
+{"q": ["how many parameters do you have", "how big are you", "how small are you"], "a": "only a few thousand, i am a nano model"}

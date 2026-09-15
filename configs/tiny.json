@@ -1,0 +1,11 @@
+{
+  "name": "tiny",
+  "d_model": 48,
+  "n_layers": 2,
+  "n_heads": 3,
+  "d_ff": 96,
+  "ctx": 128,
+  "e_res": 10,
+  "temperature": 0.8,
+  "notes": "~48k parameters, default model shipped in the ROM (about 2.5 s per character on a DMG)"
+}

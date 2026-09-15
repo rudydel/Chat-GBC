@@ -1,0 +1,21 @@
+The Game Boy is powered by a Sharp LR35902 processor, a custom 8-bit chip whose core is known as the SM83. It is similar to both the Intel 8080 and the Zilog Z80 but is neither of them. The processor runs at 4.19 megahertz. The Game Boy Color can double the clock to 8.4 megahertz.
+
+The original Game Boy has 8 kilobytes of work RAM and 8 kilobytes of video RAM. The Game Boy Color has 32 kilobytes of work RAM and 16 kilobytes of video RAM. Cartridges can add their own RAM, often backed by a battery so that games can save progress.
+
+The screen of the Game Boy is a reflective super twisted nematic liquid crystal display with 160 by 144 pixels. It shows four shades of a greenish gray, and the olive tint is often called pea soup. The screen is 2.6 inches across the diagonal. It has no backlight, and because the liquid crystal is slow, moving objects leave a blur or ghost on the screen. A contrast wheel on the left side of the console adjusts the display.
+
+Graphics are built from 8 by 8 pixel tiles. The background is a map of 32 by 32 tiles that can scroll, and there is a window layer on top. The Game Boy can show 40 sprites, with at most 10 sprites on a single line. The screen refreshes about 59.7 times per second.
+
+The sound hardware has four channels: two pulse wave channels, one programmable wave channel and one noise channel. The built in speaker is mono, but the 3.5 millimeter headphone jack outputs stereo sound. A volume wheel sits on the right side of the console.
+
+The Game Boy runs on four AA batteries for roughly 15 to 30 hours. The Game Boy Pocket uses two AAA batteries and the Game Boy Color uses two AA batteries for about 10 hours. The original Game Boy weighs about 220 grams with batteries and measures 90 by 148 by 32 millimeters.
+
+The controls are a cross shaped directional pad, the A and B buttons, and the Start and Select buttons. The directional pad was invented by Gunpei Yokoi for the Game & Watch version of Donkey Kong in 1982. The original console is gray with magenta A and B buttons.
+
+Games come on cartridges that Nintendo calls Game Paks. A plain cartridge can hold 32 kilobytes of program. Larger games use a memory bank controller, or MBC, that switches banks of 16 kilobytes into the address space. The MBC1, MBC2, MBC3 and MBC5 mappers allow cartridges up to 8 megabytes with the MBC5. The MBC3 includes a real time clock, which Pokemon Gold and Silver use to keep track of the time of day. Kirby Tilt 'n' Tumble uses the MBC7, which contains an accelerometer so the game can be controlled by tilting the console.
+
+When the Game Boy is switched on, a small boot ROM scrolls the Nintendo logo down the screen and plays a ping sound. The boot ROM compares the logo stored in the cartridge header with its own copy and refuses to start if they differ.
+
+The Game Link port on the side of the console connects two Game Boys with a link cable for two player games and for trading Pokemon. The Four Player Adapter connects up to four consoles. The Game Boy Color also has an infrared port for wireless data exchange between two units.
+
+Homebrew developers still write new Game Boy software today, usually in assembly language or in C with the Game Boy Development Kit, GBDK, and run it on flash cartridges or in emulators. Commercial games of the era were almost all written in assembly language.

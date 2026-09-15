@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+gb/build/obj/
+gb/build/*.map
+gb/build/*.noi
+gb/build/*.ihx
+gb/build/*.sym
+gb/build/*.cdb
+tools/gbdk
+tools/gbdk.tar.gz
+models/*/runs/
+models/rand/
+data/gameboy/wiki/
+*.log
