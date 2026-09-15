@@ -19,7 +19,7 @@ like the trained one (`llm/model.py`).
 make train                     # == the command below
 python3 -m llm.train --config configs/tiny.json --out models/tiny \
     --text data/gameboy/corpus --chat data/gameboy/facts.jsonl \
-    --pretrain-steps 8000 --sft-steps 6000
+    --pretrain-steps 6000 --sft-steps 12000
 ```
 
 Takes about 8 minutes on a 4-core laptop CPU (no GPU needed). The log and a
@@ -48,7 +48,7 @@ Tips
   drops when you add many more facts, use `configs/micro.json` (115k
   parameters; needs a 64 KiB SRAM cartridge, slower on a DMG) or train
   longer.
-* `--question-loss 0.2` trains lightly on the questions too, which helps
+* `--question-loss 0.1` trains lightly on the questions too, which helps
   the model stay on topic when a user types something it has not seen.
 
 ## 3. Pre-train on Game Boy history from the web
@@ -101,6 +101,13 @@ Constraints (checked by `ModelConfig.validate`): head size is 16, `d_model`,
 | `--pretrain-steps` | 3000 | phase 1 steps (batch × ctx characters each) |
 | `--sft-steps` | 2000 | phase 2 steps |
 | `--batch` | 32 | sequences per step |
-| `--lr`, `--sft-lr` | 3e-3, 1.5e-3 | peak learning rates (cosine decay, 100 warm-up steps) |
+| `--lr`, `--sft-lr` | 1e-2, 6e-3 | peak learning rates (cosine decay, 100 warm-up steps) |
 | `--chat-weight` | 0.5 | share of conversation windows during pre-training |
-| `--question-loss` | 0.2 | loss weight on question characters during SFT |
+| `--question-loss` | 0.1 | loss weight on question characters during SFT |
+
+These tiny models want a *high* learning rate: with 3e-3 the same model
+plateaus at ~1.0 nats/character and answers with gibberish, with 1e-2 it
+memorises the fact base (measured: 0% vs 60–70% exact recall after 2500
+fine-tuning steps for `tiny`; `micro` reaches 95%; the un-quantized `tiny`
+architecture 100%). If recall is low, raise the learning rate or train
+longer before enlarging the model.

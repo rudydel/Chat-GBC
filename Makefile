@@ -15,8 +15,8 @@ MODEL   ?= tiny
 CONFIG  ?= configs/$(MODEL).json
 TEXT    ?= data/gameboy/corpus
 CHAT    ?= data/gameboy/facts.jsonl
-PRETRAIN_STEPS ?= 8000
-SFT_STEPS      ?= 6000
+PRETRAIN_STEPS ?= 6000
+SFT_STEPS      ?= 12000
 PYTHON  ?= python3
 PROMPT  ?= when was the game boy released
 
