@@ -85,8 +85,13 @@ def exponent_for(maxabs: float, qmax: int) -> int:
     return int(max(E_MIN, min(E_MAX, e)))
 
 
+QUANT_ENABLED = True   # set False to train / evaluate the float architecture without fake quantization
+
+
 def fake_quant(x, e: int, qmax: int):
     """Round x to the grid 2**-e, clamp to [-qmax, qmax], straight-through gradient."""
+    if not QUANT_ENABLED:
+        return x
     scale = 2.0 ** e
     xq = torch.clamp(torch.floor(x * scale + 0.5), -qmax, qmax) / scale
     return x + (xq - x).detach()
