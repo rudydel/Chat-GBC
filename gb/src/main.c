@@ -8,6 +8,7 @@
  *   SELECT toggle greedy / sampled decoding
  */
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include <string.h>
 #include <stdint.h>
 #include "ui.h"
@@ -154,6 +155,9 @@ void main(void)
 {
     uint8_t j;
     ui_init();
+    /* Game Boy Color: double speed halves the time per character; the LCD,
+     * frame rate and joypad are unaffected (only used for timing the RNG seed) */
+    if (_cpu == CGB_TYPE) cpu_fast();
     ui_log_puts("chat-gbc: a nano llm");
     ui_log_newline();
     ui_log_puts("model " M_NAME);

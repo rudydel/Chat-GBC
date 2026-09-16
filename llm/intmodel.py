@@ -3,17 +3,20 @@ quantization-aware checkpoint. The result is a plain dict of Python ints and
 numpy int arrays that both simulate.py and export.py consume."""
 import json
 import numpy as np
-import torch
 
 from . import quant as Q
-from .model import NanoGPT, ModelConfig, exponent_for
+
+# torch is only needed to extract() a checkpoint; load_json() / simulate.py
+# (and the emulator tests built on them) must work with numpy alone.
 
 
 def _int_tensor(t, e, qmax):
+    import torch
     return torch.clamp(torch.round(t.detach() * (2.0 ** e)), -qmax, qmax).to(torch.int32).cpu().numpy()
 
 
-def extract(model: NanoGPT) -> dict:
+def extract(model) -> dict:
+    from .model import ModelConfig
     cfg = model.cfg
     model.eval()
     e_tok, e_pos = model.emb_exponents()

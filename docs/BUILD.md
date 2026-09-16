@@ -61,6 +61,16 @@ grows into the square table at 0x3E00 or WRAM runs into the stack.
 ## Emulator notes
 
 * PyBoy is used headless (`window="null"`). Any accurate emulator works for
-  playing: SameBoy, BGB, mGBA, Gambatte.
-* On a Game Boy Color the ROM runs at normal speed; enabling double speed is
-  a possible future improvement (it would halve the reply time).
+  playing: SameBoy, BGB, mGBA, Gambatte (OpenEmu uses the last two).
+* The header flags the ROM as CGB compatible (`-Wm-yc`), so a Game Boy Color
+  and every emulator running in GBC mode start it in CGB mode. In CGB mode
+  the DMG palette register `BGP` is ignored and the boot ROM leaves the colour
+  palettes white, so `ui_init()` loads BG palette 0 with the DMG greys
+  (`set_default_palette()`) when `_cpu == CGB_TYPE`. Without that the ROM
+  ran but showed a blank white screen on OpenEmu / SameBoy / real hardware.
+  PyBoy does not reproduce this: its built-in boot ROM initialises the CGB
+  palettes to visible colours and the emulator test reads the tile map, not
+  the pixels, so check anything palette related in SameBoy or on hardware.
+* On a Game Boy Color `main()` switches to double speed (`cpu_fast()`),
+  which halves the time per character; an original Game Boy runs at normal
+  speed. The self-test ROM stays at normal speed so profiles are comparable.

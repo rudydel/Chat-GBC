@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/cgb.h>
 #include <string.h>
 #include "ui.h"
 #include "font.h"
@@ -38,8 +39,15 @@ static void clear_row(uint8_t y)
 void ui_init(void)
 {
     uint8_t y;
+    DISPLAY_OFF;                        /* VRAM and palettes are freely writable while the LCD is off */
     set_bkg_data(0, FONT_NTILES, font_tiles);
     for (y = 0; y < 18; y++) clear_row(y);
+    /* The cartridge header declares CGB support, so a Game Boy Color (and
+     * every emulator running in GBC mode, e.g. OpenEmu, SameBoy, Gambatte)
+     * starts the ROM in CGB mode. There BGP is ignored and the boot ROM leaves
+     * all colour palettes white: without this the screen stays blank. Give
+     * BG palette 0 the DMG greys (white, light grey, dark grey, black). */
+    if (_cpu == CGB_TYPE) set_default_palette();
     memset(logbuf, ' ', sizeof(logbuf));
     log_line = 0;
     log_col = 0;

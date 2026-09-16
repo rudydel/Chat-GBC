@@ -51,7 +51,8 @@ make test                 # run the ROM in PyBoy, type a question, check it agai
 ```
 
 Load `gb/build/chatgbc.gb` in any Game Boy emulator (SameBoy, BGB, mGBA,
-Gambatte, PyBoy) or on a flash cartridge.
+Gambatte, OpenEmu, PyBoy) or on a flash cartridge. It runs in Game Boy Color
+mode on a GBC / GBC emulator and in monochrome on an original Game Boy.
 
 Controls: **D-pad** move over the keyboard, **A** press a key, **B**
 backspace (or stop a reply), **START** send, **SELECT** toggle greedy /
