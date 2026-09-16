@@ -12,3 +12,5 @@ models/*/runs/
 models/rand/
 data/gameboy/wiki/
 *.log
+gb/build/obj_selftest/
+gb/build/selftest.gb

@@ -14,6 +14,8 @@ _dot_spsave: .ds 2
         .globl _dot_from_48
         .globl _dot_from_64
         .globl _dot_from_80
+        .globl _dot_from_96
+        .globl _dot_from_112
 _dot_from_0::
         di
         ld (_dot_spsave),sp
@@ -80,6 +82,28 @@ _dot_from_80::
         ld hl,#0
         ld d,#0
         jp dot_u80
+_dot_from_96::
+        di
+        ld (_dot_spsave),sp
+        ld a,(_dot_ptr)
+        ld l,a
+        ld a,(_dot_ptr+1)
+        ld h,a
+        ld sp,hl
+        ld hl,#0
+        ld d,#0
+        jp dot_u96
+_dot_from_112::
+        di
+        ld (_dot_spsave),sp
+        ld a,(_dot_ptr)
+        ld l,a
+        ld a,(_dot_ptr+1)
+        ld h,a
+        ld sp,hl
+        ld hl,#0
+        ld d,#0
+        jp dot_u112
 dot_u0:
         pop bc
         ld e,b
@@ -1526,6 +1550,488 @@ dot_u80:
         jr nc,96$
         inc d
 96$:
+dot_u96:
+        pop bc
+        ld e,b
+        ld a,(_xvec+96)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,97$
+        inc d
+97$:
+        ld a,(_xvec+97)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,98$
+        inc d
+98$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+98)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,99$
+        inc d
+99$:
+        ld a,(_xvec+99)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,100$
+        inc d
+100$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+100)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,101$
+        inc d
+101$:
+        ld a,(_xvec+101)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,102$
+        inc d
+102$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+102)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,103$
+        inc d
+103$:
+        ld a,(_xvec+103)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,104$
+        inc d
+104$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+104)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,105$
+        inc d
+105$:
+        ld a,(_xvec+105)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,106$
+        inc d
+106$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+106)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,107$
+        inc d
+107$:
+        ld a,(_xvec+107)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,108$
+        inc d
+108$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+108)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,109$
+        inc d
+109$:
+        ld a,(_xvec+109)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,110$
+        inc d
+110$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+110)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,111$
+        inc d
+111$:
+        ld a,(_xvec+111)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,112$
+        inc d
+112$:
+dot_u112:
+        pop bc
+        ld e,b
+        ld a,(_xvec+112)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,113$
+        inc d
+113$:
+        ld a,(_xvec+113)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,114$
+        inc d
+114$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+114)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,115$
+        inc d
+115$:
+        ld a,(_xvec+115)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,116$
+        inc d
+116$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+116)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,117$
+        inc d
+117$:
+        ld a,(_xvec+117)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,118$
+        inc d
+118$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+118)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,119$
+        inc d
+119$:
+        ld a,(_xvec+119)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,120$
+        inc d
+120$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+120)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,121$
+        inc d
+121$:
+        ld a,(_xvec+121)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,122$
+        inc d
+122$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+122)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,123$
+        inc d
+123$:
+        ld a,(_xvec+123)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,124$
+        inc d
+124$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+124)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,125$
+        inc d
+125$:
+        ld a,(_xvec+125)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,126$
+        inc d
+126$:
+        pop bc
+        ld e,b
+        ld a,(_xvec+126)
+        add a,c
+        ld c,a
+        ld b,#>_sq_tbl
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,127$
+        inc d
+127$:
+        ld a,(_xvec+127)
+        add a,e
+        ld c,a
+        dec b
+        ld a,(bc)
+        add a,l
+        ld l,a
+        inc b
+        ld a,(bc)
+        adc a,h
+        ld h,a
+        jr nc,128$
+        inc d
+128$:
 dot_done:
         ld a,l
         ld (_dot_acc),a

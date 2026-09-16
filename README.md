@@ -31,14 +31,15 @@ on-screen keyboard:
 * **`tools/`** – emulator based tests that type on the virtual keyboard and
   compare the ROM's answer with the simulator, character for character.
 
-The shipped model (`models/tiny`, 48k parameters) answers questions about
-the history and hardware of the Game Boy, one character every ~2.5 seconds
-on an original Game Boy (half that on a Game Boy Color). It reproduces
-99% of its training questions verbatim, answers 14% of held-out phrasings
-it never saw and declines 83% of unseen off-topic questions with "sorry, i
-only know about the game boy" (`models/tiny/train_log.txt`), and the
-emulator test confirms the console prints exactly what the Python simulator
-predicts.
+The shipped model (`models/tiny`, 62k parameters, 192-token subword
+vocabulary) answers questions about the history and hardware of the Game
+Boy at roughly one second per character on an original Game Boy (a token of
+two or three characters every ~2 s; half that on a Game Boy Color). It
+reproduces 100% of its training questions verbatim, answers 32% of held-out
+phrasings it never saw and declines 73% of unseen off-topic questions with
+"sorry, i only know about the game boy" (`models/tiny/train_log.txt`), and
+the emulator test confirms the console prints exactly what the Python
+simulator predicts.
 
 ```
 > who designed the game boy          > what cpu does the game boy use
@@ -71,9 +72,9 @@ python3 -m llm.export models/tiny/ckpt.pt   # writes gb/gen/* and models/tiny/mo
 make -C gb                                  # -> gb/build/chatgbc.gb
 ```
 
-or simply `make rom` (`MODEL=micro` for the larger 112k-parameter model,
-prebuilt as `gb/build/chatgbc-micro.gb`: 100% fact recall, 5 s per
-character, needs a 128 KiB-SRAM cartridge; `MODEL=nano` for the smallest).
+or simply `make rom` (`MODEL=micro` for the larger 146k-parameter model,
+prebuilt as `gb/build/chatgbc-micro.gb`: best held-out accuracy, about
+twice as slow, needs a 128 KiB-SRAM cartridge; `MODEL=nano` for the smallest).
 `make test` then drives the ROM in an emulator and verifies that the
 Game Boy produces exactly the same characters as the Python simulator.
 

@@ -44,8 +44,8 @@ extern const mat_t mat_lm;
 extern const layer_cfg_t layer_cfg[M_L];
 extern const char *const tok_str[M_V];   /* characters of each token (bank 0) */
 extern const uint8_t tok_len[M_V];
-#define TOK_EMB_BANK 2
-#define POS_EMB_BANK 2
+#define TOK_EMB_BANK 5
+#define POS_EMB_BANK 3
 typedef void (*dotfn_t)(void);
 extern const dotfn_t dot_entries[M_NMAX / 16];
 void dot_from_0(void);
@@ -54,5 +54,7 @@ void dot_from_32(void);
 void dot_from_48(void);
 void dot_from_64(void);
 void dot_from_80(void);
+void dot_from_96(void);
+void dot_from_112(void);
 
 #endif

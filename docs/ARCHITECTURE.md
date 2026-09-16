@@ -183,8 +183,8 @@ from the frame counter and the DIV register picks the token. `<pad>`,
 |--|--|
 | WRAM | ~2.5 KiB: residual, activations, 128 int32 scores, 192 int32 logits, UI buffers |
 | SRAM | 4 banks × 8 KiB (2 layers × K/V) |
-| ROM | bank 0: 12 KiB code + 0.5 KiB table; banks 1–4: 51 KiB of weights → 128 KiB cartridge |
-| Cycles per token | ~1.0 M for the matrices, +~6k per cached position for attention, ~2.3 M total at short context → ~2.5 s |
+| ROM | bank 0: 13 KiB code, token table and SQ table; banks 1–5: 65 KiB of weights → 128 KiB cartridge |
+| Cycles per token | ~1.2 M for the matrices (the 192-row LM head included), +~6k per cached position for attention → ~2 s per token, ~0.9 s per character |
 
 Measured with `tools/selftest.py --profile` in PyBoy, which counts frames
 between checkpoints.
@@ -201,9 +201,9 @@ runs the latter.
 
 ## 10. Known limitations / ideas
 
-* ~2.5 s per character on a DMG. Remaining overhead is per-row bookkeeping
-  in `mv_run` (~400 cycles/row) and the softmax loop in C; a GBC double-speed
-  mode would halve wall time for free.
+* ~2 s per token (~0.9 s per character) on a DMG. Remaining overhead is
+  per-row bookkeeping in `mv_run` (~400 cycles/row) and the softmax loop in
+  C; the ROM already switches a Game Boy Color to double speed.
 * Weights are 7-bit with a per-tensor power-of-two scale (about 6.5
   effective bits). Per-row scales would improve accuracy at the cost of a
   multiply per row.

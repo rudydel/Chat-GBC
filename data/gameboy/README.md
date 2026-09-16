@@ -6,7 +6,7 @@ Everything the shipped model knows about the Game Boy comes from this folder.
 |------|------------|----------|
 | `facts.jsonl` | ~145 facts as `{"q": [question variants], "a": "answer"}` (~440 question/answer pairs), including a few chit-chat lines (hello, thanks, who are you) | fine-tuning (and pre-training) |
 | `offtopic.jsonl` | ~215 generic questions (geography, maths, weather, recipes, code, ...) that all get the fallback answer "sorry, i only know about the game boy" | fine-tuning: teaches the model the limit of its knowledge |
-| `corpus/*.txt` | prose about the history, hardware, models and games of the Game Boy | pre-training |
+| `corpus/*.txt` | ~23 KB of prose about the history, hardware, models, accessories and games of the Game Boy (`hardware.txt`, `history.txt`, `models_games.txt`, `details.txt`) | pre-training and learning the subword vocabulary |
 | `scripts/fetch_web.py` | downloads ~40 related Wikipedia articles as plain text into `wiki/` | optional extra pre-training text |
 | `wiki/` | output of the fetch script (not committed, CC BY-SA 4.0) | pre-training |
 
@@ -40,3 +40,6 @@ python3 -m llm.train ... --text data/gameboy/corpus data/gameboy/wiki ...
 
 The fetch script uses the public MediaWiki API. Wikipedia text is
 CC BY-SA 4.0; keep the attribution if you redistribute a model trained on it.
+`make train` picks `wiki/` up automatically when the folder exists (see
+`TEXT` in the top-level Makefile); the shipped models were trained without it
+because the network the models were trained on could not reach Wikipedia.

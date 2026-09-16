@@ -86,14 +86,14 @@ by a user. The trainer therefore splits the question variants:
 The final report (also in `train_log.txt`) shows, per source file:
 
 ```
-[int] train questions: exact match 99%, char error rate 0.00 (80 questions)
-    facts.jsonl          exact  98%  cer 0.00  (47)
+[int] train questions: exact match 100%, char error rate 0.00 (80 questions)
+    facts.jsonl          exact 100%  cer 0.00  (47)
     offtopic.jsonl       exact 100%  cer 0.00  (33)
-[int] held-out questions: exact match 33%, char error rate 0.68 (144 questions)
-    facts.jsonl          exact  14%  cer 0.89  (103)
-    offtopic.jsonl       exact  83%  cer 0.16  (41)
+[int] held-out questions: exact match 44%, char error rate 0.60 (144 questions)
+    facts.jsonl          exact  32%  cer 0.74  (103)
+    offtopic.jsonl       exact  73%  cer 0.24  (41)
   BAD q: release date of the game boy
-      got: july 31, 1989
+      got: 12,500 yen in japan and 89.99 dollars in the us
       exp: april 21, 1989 in japan
 ```
 
@@ -112,12 +112,15 @@ python3 -m llm.evaluate models/tiny/ckpt.pt --chat data/gameboy --heldout 0.2 --
 When you change the recipe, compare the held-out numbers between runs. The
 question augmentation (`--augment`, default 0.5: the probability that a
 training question is rephrased) exists for exactly this metric. Measured on
-`tiny` with the same split (float model): without augmentation 12% of the
-held-out fact phrasings are answered exactly (char error rate 1.12), with it
-22% (0.83); the fallback on unseen off-topic questions goes from 78% to 85%
-and training recall stays at 95-96%. The integer model is a little worse
-off-distribution than the float model (14% vs 22% on held-out facts) because
-its softmax and rounding are approximations that quantization-aware training
+the character-level `tiny` model with the same split (float model): without
+augmentation 12% of the held-out fact phrasings were answered exactly (char
+error rate 1.12), with it 22% (0.83); the fallback on unseen off-topic
+questions went from 78% to 85% and training recall stayed at 95-96%.
+Switching to the 192-token subword vocabulary (same network, 12000 instead
+of 6000 pre-training steps on the enlarged corpus) then took the held-out
+facts to 32% in the integer model, with 100% training recall. The integer
+model can be worse off-distribution than the float model because its
+softmax and rounding are approximations that quantization-aware training
 does not model, so judge with `--eval-int` before flashing.
 
 ## 4. Pre-train on Game Boy history from the web
@@ -154,11 +157,18 @@ answer looks right there, it will look the same on the console.
 
 ## 6. Model configurations
 
-| config | params | d_model | layers | heads | d_ff | ctx | ROM / SRAM | s/char on DMG | exact match train / held-out |
-|--------|--------|---------|--------|-------|------|-----|------------|---------------|------------------------------|
-| nano   | 23k    | 32      | 2      | 2     | 64   | 96  | 128 KiB / 32 KiB | ~1.2 | (not trained) |
-| tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 128 KiB / 32 KiB | ~2.2 | 99% / 33% (facts 14%, off-topic 83%) |
-| micro  | 112k   | 64      | 3      | 4     | 128  | 112 | 256 KiB / 128 KiB | ~5.2 | 100% / – (trained on all variants, before augmentation and off-topic data existed) |
+| config | params | d_model | layers | heads | d_ff | ctx | vocab | ROM / SRAM | s/char on DMG | exact match train / held-out (int) |
+|--------|--------|---------|--------|-------|------|-----|-------|------------|---------------|------------------------------------|
+| nano   | 28k    | 32      | 2      | 2     | 64   | 96  | 128   | 128 KiB / 32 KiB | ~0.5 | (not trained) |
+| tiny   | 62k    | 48      | 2      | 3     | 96   | 128 | 192   | 128 KiB / 32 KiB | ~0.9 | 100% / 44% (facts 32%, off-topic 73%) |
+| micro  | 146k   | 64      | 3      | 4     | 128  | 112 | 255   | 256 KiB / 128 KiB | ~2 | MICRO_RESULTS |
+
+`vocab` is the base of 54 characters plus `n_extra_tokens` learned subword
+tokens; with ~2.4 characters per token, the seconds per character are about
+a third of what the same network needs with a character vocabulary (measured
+in PyBoy: the tiny reply "april 21, 1989 in japan" takes 17.6 s of Game Boy
+time including the question, against 37 s for the shorter "hello! ask me
+about the game boy" with the old character-level tiny model).
 
 `micro` needs 6 SRAM banks; the cartridge header declares 128 KiB because
 the header only encodes 8, 32 or 128 KiB. Both trained models are in
