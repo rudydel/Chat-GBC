@@ -17,7 +17,7 @@ import shutil
 import numpy as np
 
 from . import quant as Q
-from .tokenizer import VOCAB_SIZE, c_vocab_table, VOCAB
+from . import tokenizer as tok
 from .intmodel import extract, save_json, summary
 
 BANK_BYTES = 16 * 1024
@@ -158,6 +158,10 @@ def gen_dot_asm(nmax):
 def export(m: dict, out_dir: str):
     cfg = m["config"]
     D, H, F, T, L, V = cfg["d_model"], cfg["n_heads"], cfg["d_ff"], cfg["ctx"], cfg["n_layers"], cfg["vocab_size"]
+    tok.set_vocab(m.get("vocab", []))
+    vocab = tok.VOCAB
+    assert V == len(vocab) <= tok.MAX_VOCAB, "vocabulary must match the model and fit in a byte"
+    assert V == np.asarray(m["lm_head"]).shape[0] == np.asarray(m["tok_emb"]).shape[0]
     nmax = max(D, F, T)
     assert nmax % ENTRY_STEP == 0
     if os.path.isdir(out_dir):
@@ -177,10 +181,10 @@ def export(m: dict, out_dir: str):
         for k in ("wq", "wk", "wv", "wo", "w1", "w2"):
             add_mat(f"L{l}_{k}", ly[k])
     add_mat("lm_head", m["lm_head"])
-    tok = np.asarray(m["tok_emb"]).flatten()
-    pos = np.asarray(m["pos_emb"]).flatten()
-    mats["tok_emb"] = packer.add("tok_emb", c_array("tok_emb", "int8_t", tok), tok.size)
-    mats["pos_emb"] = packer.add("pos_emb", c_array("pos_emb", "int8_t", pos), pos.size)
+    tok_e = np.asarray(m["tok_emb"]).flatten()
+    pos_e = np.asarray(m["pos_emb"]).flatten()
+    mats["tok_emb"] = packer.add("tok_emb", c_array("tok_emb", "int8_t", tok_e), tok_e.size)
+    mats["pos_emb"] = packer.add("pos_emb", c_array("pos_emb", "int8_t", pos_e), pos_e.size)
 
     # ---- bank files
     for i, (used, chunks) in enumerate(packer.banks):
@@ -212,7 +216,7 @@ def export(m: dict, out_dir: str):
         f.write(f"#define M_LM_MUL {m['lm_mul']}\n#define M_SCALE_SHIFT {Q.SCALE_SHIFT}\n")
         f.write(f"#define M_EXP_MAX {Q.EXP_MAX}\n#define M_MAX_LOGIT_DIFF {Q.MAX_LOGIT_DIFF}L\n")
         f.write(f"#define M_RAM_BANKS {ram_banks}\n#define M_ROM_BANKS {len(packer.banks) + 1}\n")
-        f.write(f"#define M_VOCAB_CHARS {c_vocab_table()}\n")
+        f.write(f"#define M_TOK_MAXLEN {max(1, max((len(t) for t in vocab[4:]), default=1))}\n")
         f.write(f"#define TOK_PAD 0\n#define TOK_EOS 1\n#define TOK_USR 2\n#define TOK_BOT 3\n")
         f.write("\n#endif\n")
 
@@ -230,6 +234,8 @@ def export(m: dict, out_dir: str):
                 f.write(f"extern const uint8_t {name}[];\nextern const uint32_t {name}_sq[];\n")
         f.write("\nextern const mat_t mat_wq[M_L], mat_wk[M_L], mat_wv[M_L], mat_wo[M_L], mat_w1[M_L], mat_w2[M_L];\n")
         f.write("extern const mat_t mat_lm;\nextern const layer_cfg_t layer_cfg[M_L];\n")
+        f.write("extern const char *const tok_str[M_V];   /* characters of each token (bank 0) */\n")
+        f.write("extern const uint8_t tok_len[M_V];\n")
         f.write(f"#define TOK_EMB_BANK {mats['tok_emb']}\n#define POS_EMB_BANK {mats['pos_emb']}\n")
         f.write("typedef void (*dotfn_t)(void);\nextern const dotfn_t dot_entries[M_NMAX / 16];\n")
         for e in range(0, nmax, ENTRY_STEP):
@@ -252,7 +258,16 @@ def export(m: dict, out_dir: str):
                     f"{ly['s_f']}, {ly['s_fo']}, {ly['rs_f']}, {ly['att_mul']} }},\n")
         f.write("};\n\n")
         f.write("const dotfn_t dot_entries[M_NMAX / 16] = {\n    " +
-                ", ".join(f"dot_from_{e}" for e in range(0, nmax, ENTRY_STEP)) + "\n};\n")
+                ", ".join(f"dot_from_{e}" for e in range(0, nmax, ENTRY_STEP)) + "\n};\n\n")
+        # token strings: specials are empty, every other token is 1..M_TOK_MAXLEN display characters
+        def c_str(t):
+            return '"' + t.replace("\\", "\\\\").replace('"', '\\"') + '"'
+        f.write("/* token id -> characters (greedy longest match in main.c, see llm/tokenizer.py) */\n")
+        f.write("const char *const tok_str[M_V] = {\n")
+        for i in range(0, V, 4):
+            f.write("    " + ", ".join(c_str("" if j < 4 else vocab[j]) for j in range(i, min(V, i + 4))) + ",\n")
+        f.write("};\n")
+        f.write(c_array("tok_len", "uint8_t", [0 if j < 4 else len(vocab[j]) for j in range(V)]))
 
     with open(os.path.join(out_dir, "dot_gen.s"), "w") as f:
         f.write(gen_dot_asm(nmax))

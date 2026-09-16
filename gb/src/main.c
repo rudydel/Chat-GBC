@@ -13,23 +13,42 @@
 #include <stdint.h>
 #include "ui.h"
 #include "llm.h"
+#include "../gen/model_weights.h"   /* tok_str[], tok_len[]: the characters of every token */
 
 #define MIN_REPLY 24            /* start a fresh context if fewer tokens than this would remain */
 #define MAX_REPLY 96
 
-static const char vocab_chars[] = M_VOCAB_CHARS;
 static char input[INPUT_MAX + 1];
 static uint8_t input_len;
+static uint8_t tokens[INPUT_MAX];
 static uint8_t cur_row, cur_col;
 static uint8_t sampling;
 static uint16_t frame_count;
 
-static uint8_t char_to_token(char c)
+/* Greedy longest-match tokenizer, identical to tokenizer.encode() in
+ * llm/tokenizer.py: at every position take the longest token (single
+ * characters included) whose characters match the input. Token strings are
+ * unique, so "longest" identifies one token. Returns the number of tokens. */
+static uint8_t tokenize(void)
 {
-    uint8_t i;
-    for (i = 4; i < M_V; i++)
-        if (vocab_chars[i] == c) return i;
-    return 0;
+    uint8_t i = 0, n = 0;
+    while (i < input_len) {
+        uint8_t best = 0, best_len = 0, t;
+        uint8_t remain = input_len - i;
+        for (t = 4; t < M_V; t++) {
+            uint8_t L = tok_len[t];
+            if (L > best_len && L <= remain) {
+                const char *ts = tok_str[t];
+                uint8_t j;
+                for (j = 0; j < L && ts[j] == input[i + j]; j++) ;
+                if (j == L) { best = t; best_len = L; }
+            }
+        }
+        if (best_len == 0) { i++; continue; }     /* character outside the vocabulary: skip it */
+        tokens[n++] = best;
+        i += best_len;
+    }
+    return n;
 }
 
 static void show_mode(void)
@@ -52,7 +71,7 @@ static void redraw_input(void)
 /* feed the prompt, then generate a reply, printing it as it is produced */
 static void chat(void)
 {
-    uint8_t i, n = 0, t;
+    uint8_t i, n = 0, t, ntok;
     uint8_t stop = 0;
 
     if (input_len == 0) return;
@@ -60,10 +79,11 @@ static void chat(void)
     ui_log_puts(input);
     ui_log_newline();
     ui_log_flush();
+    ntok = tokenize();
 
 #ifdef KEEP_CONTEXT
     /* multi-turn: keep the conversation in the KV cache while it fits */
-    if ((uint16_t)llm_pos() + input_len + 2 + MIN_REPLY > M_T) {
+    if ((uint16_t)llm_pos() + ntok + 2 + MIN_REPLY > M_T) {
         llm_reset();
         ui_status("(new context)");
     } else {
@@ -78,8 +98,8 @@ static void chat(void)
     llm_seed(frame_count ^ (uint16_t)DIV_REG);
 
     llm_feed(TOK_USR);
-    for (i = 0; i < input_len; i++) {
-        llm_feed(char_to_token(input[i]));
+    for (i = 0; i < ntok; i++) {
+        llm_feed(tokens[i]);
         if (joypad() & J_B) { stop = 1; break; }
     }
     if (!stop) {
@@ -90,7 +110,7 @@ static void chat(void)
             t = llm_pick(sampling);
             if (t == TOK_EOS) break;
             if (t >= 4) {
-                ui_log_putc(vocab_chars[t]);
+                ui_log_puts(tok_str[t]);        /* a subword token prints several characters */
                 ui_log_flush();
             }
             n++;

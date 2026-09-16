@@ -5,6 +5,7 @@
   "n_heads": 2,
   "d_ff": 64,
   "ctx": 96,
+  "n_extra_tokens": 74,
   "e_res": 10,
   "temperature": 0.8,
   "notes": "~21k parameters, fastest option for an original Game Boy (about 1 s per character)"

@@ -5,6 +5,7 @@ import json
 import numpy as np
 
 from . import quant as Q
+from . import tokenizer as tok
 
 # torch is only needed to extract() a checkpoint; load_json() / simulate.py
 # (and the emulator tests built on them) must work with numpy alone.
@@ -26,6 +27,7 @@ def extract(model) -> dict:
         "e_norm": Q.E_NORM,
         "e_tok": e_tok,
         "e_pos": e_pos,
+        "vocab": tok.extra_vocab(),          # learned subword tokens (ids 54..), see tokenizer.py
         "tok_emb": _int_tensor(model.tok_emb, e_tok, Q.EMB_QMAX),
         "pos_emb": _int_tensor(model.pos_emb, e_pos, Q.EMB_QMAX),
         "layers": [],
@@ -83,6 +85,7 @@ def save_json(m: dict, path):
 def load_json(path) -> dict:
     with open(path) as f:
         m = json.load(f)
+    tok.set_vocab(m.get("vocab", []))       # the integer model carries its vocabulary
     for k in ("tok_emb", "pos_emb", "lm_head"):
         m[k] = np.array(m[k], dtype=np.int64)
     for layer in m["layers"]:

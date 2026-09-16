@@ -33,19 +33,30 @@ for each layer:
 logits = int7( h / rms(h) * 2^4 ) @ Wlm           int32, argmax or sampled
 ```
 
-Character-level vocabulary of 54 tokens (`llm/tokenizer.py`): 4 specials
-(`<pad> <eos> <usr> <bot>`), space, a–z, 0–9 and 13 punctuation marks. A
-conversation is `<usr> question <bot> answer <eos>`. By default the ROM
-starts a fresh context for every question; built with `-DKEEP_CONTEXT`
-(`EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT`) it keeps the whole conversation in the
-KV cache until the context (128 tokens) would overflow. The model is
-trained on packed multi-turn windows either way, but with 48k parameters
-earlier turns hurt more than they help (measured exact recall on the
-shipped model: 95% fresh vs 62% multi-turn).
+Vocabulary (`llm/tokenizer.py`): a fixed base of 54 tokens, 4 specials
+(`<pad> <eos> <usr> <bot>`), space, a–z, 0–9 and 13 punctuation marks, plus
+up to 201 *subword tokens* learned from the training text (frequent words,
+word pieces and short phrases such as `" game boy"`, `" nintendo"`, `"ed"`,
+`"sorry,"`). Token ids stay one byte. Text is encoded by greedy longest
+match: at each position the longest token that matches the upcoming
+characters is taken. The ROM runs the same loop in C over the typed question
+(`tokenize()` in `gb/src/main.c`, tables `tok_str[]`/`tok_len[]` generated
+into `gb/gen/model_desc.c`), and prints the characters of every generated
+token, so the on-screen keyboard still types characters while the model sees
+about 2.4 characters per token in the answers. A reply therefore needs two to
+three times fewer forward passes than with the earlier character-level
+vocabulary, at the price of a larger embedding table and language-model head
+(2 × V × d_model parameters). A conversation is `<usr> question <bot> answer
+<eos>`. By default the ROM starts a fresh context for every question; built
+with `-DKEEP_CONTEXT` (`EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT`) it keeps the whole
+conversation in the KV cache until the context would overflow. The model is
+trained on packed multi-turn windows either way, but with these sizes earlier
+turns hurt more than they help (measured on the earlier character-level tiny
+model: 95% exact recall fresh vs 62% multi-turn).
 
 Default size (`configs/tiny.json`): d_model 48, 2 layers, 3 heads of 16,
-d_ff 96, context 128 → 48,432 parameters, ~40k multiply-accumulates per
-token plus attention.
+d_ff 96, context 128 tokens, 192-token vocabulary → ~61k parameters, ~47k
+multiply-accumulates per token plus attention.
 
 ## 3. Number formats
 
@@ -170,10 +181,10 @@ from the frame counter and the DIV register picks the token. `<pad>`,
 
 | | |
 |--|--|
-| WRAM | ~1.9 KiB: residual, activations, 128 int32 scores, 54 int32 logits, UI buffers |
+| WRAM | ~2.5 KiB: residual, activations, 128 int32 scores, 192 int32 logits, UI buffers |
 | SRAM | 4 banks × 8 KiB (2 layers × K/V) |
-| ROM | bank 0: 12 KiB code + 0.5 KiB table; banks 1–4: 51 KiB of weights → 128 KiB cartridge |
-| Cycles per token | ~1.0 M for the matrices, +~6k per cached position for attention, ~2.3 M total at short context → ~2.5 s |
+| ROM | bank 0: 13 KiB code, token table and SQ table; banks 1–5: 65 KiB of weights → 128 KiB cartridge |
+| Cycles per token | ~1.2 M for the matrices (the 192-row LM head included), +~6k per cached position for attention → ~2 s per token, ~0.9 s per character |
 
 Measured with `tools/selftest.py --profile` in PyBoy, which counts frames
 between checkpoints.
@@ -190,9 +201,9 @@ runs the latter.
 
 ## 10. Known limitations / ideas
 
-* ~2.5 s per character on a DMG. Remaining overhead is per-row bookkeeping
-  in `mv_run` (~400 cycles/row) and the softmax loop in C; a GBC double-speed
-  mode would halve wall time for free.
+* ~2 s per token (~0.9 s per character) on a DMG. Remaining overhead is
+  per-row bookkeeping in `mv_run` (~400 cycles/row) and the softmax loop in
+  C; the ROM already switches a Game Boy Color to double speed.
 * Weights are 7-bit with a per-tensor power-of-two scale (about 6.5
   effective bits). Per-row scales would improve accuracy at the cost of a
   multiply per row.

@@ -9,22 +9,22 @@
 #define M_F 96
 #define M_T 128
 #define M_L 2
-#define M_V 54
+#define M_V 192
 #define M_NMAX 128
 #define M_QMAX 63
 #define M_BIAS 63
 #define M_E_RES 10
 #define M_TOK_SHIFT 6
-#define M_POS_SHIFT 6
+#define M_POS_SHIFT 5
 #define M_NORM_K 7264748UL
 #define M_NORM_K_BITS 16
-#define M_LM_MUL 20480
+#define M_LM_MUL 10240
 #define M_SCALE_SHIFT 16
 #define M_EXP_MAX 126
 #define M_MAX_LOGIT_DIFF 32767L
 #define M_RAM_BANKS 4
-#define M_ROM_BANKS 5
-#define M_VOCAB_CHARS "???? abcdefghijklmnopqrstuvwxyz0123456789.,?!'-:()/&\";"
+#define M_ROM_BANKS 6
+#define M_TOK_MAXLEN 12
 #define TOK_PAD 0
 #define TOK_EOS 1
 #define TOK_USR 2

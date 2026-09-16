@@ -25,7 +25,7 @@ python3 tools/emu_test.py gb/build/chatgbc.gb "hello" --model models/tiny/model_
 
 | File | Content |
 |------|---------|
-| `model_config.h` | dimensions, fixed-point constants, vocabulary string |
+| `model_config.h` | dimensions, fixed-point constants, vocabulary size and longest token |
 | `model_weights.h`, `model_desc.c` | descriptor tables: pointer + ROM bank of every matrix, per-layer shifts |
 | `model_bank_N.c` | the weight matrices, one file per 16 KiB ROM bank (`#pragma bank N`) |
 | `dot_gen.s` | the unrolled SM83 dot-product routine with an entry point every 16 elements, and the square table at 0x3E00 |
