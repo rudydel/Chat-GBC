@@ -5,6 +5,7 @@
   "n_heads": 4,
   "d_ff": 128,
   "ctx": 112,
+  "n_extra_tokens": 201,
   "e_res": 10,
   "temperature": 0.8,
   "notes": "~114k parameters, better recall, 8 SRAM banks (64 KiB cart RAM), ctx 112 so the K cache fits a bank; slow on a DMG, use a Game Boy Color"

@@ -28,7 +28,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from . import quant as Q
-from .tokenizer import VOCAB_SIZE
+from . import tokenizer as tok
 
 E_MIN, E_MAX = -8, 24          # allowed range for power-of-two exponents
 
@@ -36,7 +36,8 @@ E_MIN, E_MAX = -8, 24          # allowed range for power-of-two exponents
 @dataclass
 class ModelConfig:
     name: str = "tiny"
-    vocab_size: int = VOCAB_SIZE
+    vocab_size: int = tok.BASE_SIZE   # base characters + n_extra_tokens learned subword tokens
+    n_extra_tokens: int = 0
     d_model: int = 48
     n_layers: int = 2
     n_heads: int = 3
@@ -57,7 +58,8 @@ class ModelConfig:
         assert self.d_model % 16 == 0 and self.d_ff % 16 == 0 and self.ctx % 16 == 0, \
             "d_model, d_ff and ctx must be multiples of 16 (dot-product entry granularity)"
         assert 16 <= self.ctx <= 256
-        assert self.vocab_size == VOCAB_SIZE
+        assert 0 <= self.n_extra_tokens <= tok.MAX_VOCAB - tok.BASE_SIZE, "too many subword tokens (ids are one byte)"
+        assert self.vocab_size == tok.BASE_SIZE + self.n_extra_tokens, "vocab_size must be BASE_SIZE + n_extra_tokens"
         assert self.n_layers <= 8, "at most 8 layers (16 SRAM banks of 8 KiB)"
         # per layer: one 8 KiB SRAM bank for K + row sums, one for V + sums (see gb/src/llm.c)
         assert self.ctx * self.d_model + self.ctx * self.n_heads * 2 <= 8192, \
@@ -70,6 +72,7 @@ class ModelConfig:
         with open(path) as f:
             d = json.load(f)
         d = {k: v for k, v in d.items() if k in ModelConfig.__dataclass_fields__}
+        d["vocab_size"] = tok.BASE_SIZE + int(d.get("n_extra_tokens", 0))
         cfg = ModelConfig(**d)
         cfg.validate()
         return cfg
@@ -250,6 +253,8 @@ class NanoGPT(nn.Module):
     def __init__(self, cfg: ModelConfig):
         super().__init__()
         cfg.validate()
+        assert cfg.vocab_size == tok.VOCAB_SIZE, \
+            f"model vocabulary ({cfg.vocab_size}) differs from the active tokenizer ({tok.VOCAB_SIZE}): call tokenizer.set_vocab first"
         self.cfg = cfg
         self.tok_emb = nn.Parameter(torch.randn(cfg.vocab_size, cfg.d_model) * 0.3)
         self.pos_emb = nn.Parameter(torch.randn(cfg.ctx, cfg.d_model) * 0.3)
@@ -310,12 +315,17 @@ class NanoGPT(nn.Module):
 
 
 def save_checkpoint(model: NanoGPT, path, extra=None):
-    torch.save({"config": asdict(model.cfg), "state_dict": model.state_dict(), "extra": extra or {}}, path)
+    torch.save({"config": asdict(model.cfg), "vocab": tok.extra_vocab(), "state_dict": model.state_dict(),
+                "extra": extra or {}}, path)
 
 
 def load_checkpoint(path, map_location="cpu"):
+    """Load a checkpoint and install its learned vocabulary in the tokenizer."""
     ck = torch.load(path, map_location=map_location)
-    cfg = ModelConfig(**{k: v for k, v in ck["config"].items() if k in ModelConfig.__dataclass_fields__})
+    tok.set_vocab(ck.get("vocab", []))
+    d = {k: v for k, v in ck["config"].items() if k in ModelConfig.__dataclass_fields__}
+    d.setdefault("n_extra_tokens", len(ck.get("vocab", [])))
+    cfg = ModelConfig(**d)
     model = NanoGPT(cfg)
     model.load_state_dict(ck["state_dict"])
     model.eval()

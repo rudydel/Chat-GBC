@@ -142,12 +142,11 @@ def main():
         secs = frames / 59.73
         print(f"> {prompt}")
         print(f"< {reply}")
-        print(f"  ({secs:.1f} s of Game Boy time for prompt + reply, {secs / max(1, len(prompt) + len(reply) + 3):.2f} s/token; "
+        print(f"  ({secs:.1f} s of Game Boy time for prompt + reply, {secs / max(1, len(prompt) + len(reply) + 3):.2f} s/char; "
               f"{time.time() - t0:.1f} s wall)")
         if sim is not None:
             expect_ids = sim.chat_reply(prompt, max_new=96)
-            expect = "".join(tok.VOCAB[i] for i in expect_ids if i >= 4)
-            expect = "".join(expect.split())
+            expect = "".join(tok.text_of(expect_ids).split())
             # the screen only shows the last 10 lines: compare the visible tail
             if expect.endswith(reply) and (len(reply) > 0 or len(expect) == 0):
                 print(f"  simulator: MATCH ({len(expect_ids)} tokens)")

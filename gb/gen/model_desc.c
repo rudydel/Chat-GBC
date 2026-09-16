@@ -3,35 +3,79 @@
 
 const mat_t mat_wq[M_L] = {
     { L0_wq, L0_wq_sq, 1 },
-    { L1_wq, L1_wq_sq, 2 },
+    { L1_wq, L1_wq_sq, 1 },
 };
 const mat_t mat_wk[M_L] = {
     { L0_wk, L0_wk_sq, 1 },
-    { L1_wk, L1_wk_sq, 2 },
+    { L1_wk, L1_wk_sq, 1 },
 };
 const mat_t mat_wv[M_L] = {
     { L0_wv, L0_wv_sq, 1 },
-    { L1_wv, L1_wv_sq, 2 },
+    { L1_wv, L1_wv_sq, 1 },
 };
 const mat_t mat_wo[M_L] = {
     { L0_wo, L0_wo_sq, 1 },
-    { L1_wo, L1_wo_sq, 2 },
+    { L1_wo, L1_wo_sq, 1 },
 };
 const mat_t mat_w1[M_L] = {
     { L0_w1, L0_w1_sq, 1 },
-    { L1_w1, L1_w1_sq, 3 },
+    { L1_w1, L1_w1_sq, 1 },
 };
 const mat_t mat_w2[M_L] = {
-    { L0_w2, L0_w2_sq, 2 },
-    { L1_w2, L1_w2_sq, 3 },
+    { L0_w2, L0_w2_sq, 1 },
+    { L1_w2, L1_w2_sq, 2 },
 };
-const mat_t mat_lm = { lm_head, lm_head_sq, 3 };
+const mat_t mat_lm = { lm_head, lm_head_sq, 2 };
 
 const layer_cfg_t layer_cfg[M_L] = {
-    { 6, 7, 8, 5, 8, 6, 5, 8, 8192 },
-    { 7, 7, 7, 5, 8, 7, 3, 8, 8192 },
+    { 7, 7, 7, 8, 4, 7, 8, 5, 256 },
+    { 7, 7, 7, 8, 4, 7, 7, 4, 256 },
 };
 
 const dotfn_t dot_entries[M_NMAX / 16] = {
-    dot_from_0, dot_from_16, dot_from_32, dot_from_48, dot_from_64, dot_from_80, dot_from_96, dot_from_112
+    dot_from_0, dot_from_16, dot_from_32, dot_from_48, dot_from_64, dot_from_80
+};
+
+/* token id -> characters (greedy longest match in main.c, see llm/tokenizer.py) */
+const char *const tok_str[M_V] = {
+    "", "", "", "",
+    " ", "a", "b", "c",
+    "d", "e", "f", "g",
+    "h", "i", "j", "k",
+    "l", "m", "n", "o",
+    "p", "q", "r", "s",
+    "t", "u", "v", "w",
+    "x", "y", "z", "0",
+    "1", "2", "3", "4",
+    "5", "6", "7", "8",
+    "9", ".", ",", "?",
+    "!", "'", "-", ":",
+    "(", ")", "/", "&",
+    "\"", ";", " t", "th",
+    "bo", "he", "me", " b",
+    " a", "am", "ame", " g",
+    "gam", " the", " i", " bo",
+    "oy", "on", " game", " boy",
+    "or", " c", "at", "ow",
+    " s", "re", " game boy", " the game",
+    "ut", " on", "nd", "er",
+    "an", " w", "in", "bout",
+    " k", " abo", "ly", " d",
+    "wh", "es", " about", "ry",
+    " m", " p", "sor", "y,",
+    " only", " kn", " know", "sorry",
+    " i only", " in", "ry,", " l",
+    " 1", "as", " i only know", " know about",
+    "sorry,", "ri", "ar", "ed",
+    "ol", " is", "what", "en",
+    " and", " f", "le", " 19",
+    " o", "te", "ou", " n",
+};
+const uint8_t tok_len[128] = {
+    0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 3, 4, 2, 3, 2, 2, 5, 4,
+    2, 2, 2, 2, 2, 2, 9, 9, 2, 3, 2, 2, 2, 2, 2, 4, 2, 4, 2, 2, 2, 2, 6, 2,
+    2, 2, 3, 2, 5, 3, 5, 5, 7, 3, 3, 2, 2, 2, 12, 11, 6, 2, 2, 2, 2, 3, 4, 2,
+    4, 2, 2, 3, 2, 2, 2, 2,
 };

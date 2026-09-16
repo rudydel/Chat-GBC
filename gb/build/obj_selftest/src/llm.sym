@@ -1,0 +1,113 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 1
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =   00002710 L
+    .__.ABS.                                                    =   00000000 G
+    .__.CPU.                                                    =   00000000 L
+    .__.H$L.                                                    =   00000000 L
+    __current_bank                                                  ******** GX
+    __divulong                                                      ******** GX
+    __moduint                                                       ******** GX
+  7 __xinit__norm_k_v                                               00000000 R
+  7 __xinit__rng_state                                              00000004 R
+  1 _a                                                              00000354 GR
+  0 _abs16                                                          00000256 R
+  0 _attention                                                      0000050A R
+  1 _dbg_inv                                                        00000004 GR
+  1 _dbg_prod                                                       0000000A GR
+  1 _dbg_r                                                          00000008 GR
+  1 _dbg_ss                                                         00000000 GR
+    _dbg_sync                                                       ******** GX
+    _divq                                                           ******** GX
+  1 _dot_acc                                                        00000070 GR
+    _dot_entries                                                    ******** GX
+  1 _dot_ptr                                                        0000006E GR
+    _dq_den                                                         ******** GX
+    _dq_num                                                         ******** GX
+    _dq_res                                                         ******** GX
+  1 _evec                                                           00000534 GR
+    _exp_tbl                                                        ******** GX
+  1 _f                                                              00000374 GR
+  1 _h                                                              00000274 GR
+  0 _isqrt32                                                        00000000 R
+  1 _k                                                              000002F4 GR
+    _layer_cfg                                                      ******** GX
+  0 _llm_feed                                                       00000BB1 GR
+  0 _llm_init                                                       00000BA5 GR
+  0 _llm_pick                                                       00000F36 GR
+  1 _llm_pick_ev_20000_236                                          00000595 R
+  0 _llm_pos                                                        00000BAD GR
+  0 _llm_reset                                                      00000B61 GR
+  0 _llm_seed                                                       00000B53 GR
+  0 _load_x                                                         0000011C R
+  1 _logits                                                         00000074 GR
+    _mat_lm                                                         ******** GX
+    _mat_w1                                                         ******** GX
+    _mat_w2                                                         ******** GX
+    _mat_wk                                                         ******** GX
+    _mat_wo                                                         ******** GX
+    _mat_wq                                                         ******** GX
+    _mat_wv                                                         ******** GX
+  0 _matvec                                                         000001B4 R
+    _memset                                                         ******** GX
+    _mul16s                                                         ******** GX
+    _mul_a                                                          ******** GX
+    _mul_b                                                          ******** GX
+    _mul_r                                                          ******** GX
+    _mv_entry                                                       ******** GX
+    _mv_lo                                                          ******** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    _mv_mode                                                        ******** GX
+    _mv_out                                                         ******** GX
+    _mv_row                                                         ******** GX
+    _mv_rows                                                        ******** GX
+    _mv_run                                                         ******** GX
+    _mv_shift                                                       ******** GX
+    _mv_sq                                                          ******** GX
+    _mv_sq16                                                        ******** GX
+    _mv_sqstride                                                    ******** GX
+    _mv_stride                                                      ******** GX
+    _mv_xsq                                                         ******** GX
+  1 _nbuf                                                           000002B4 GR
+  2 _norm_k_v                                                       00000000 R
+    _norm_scale                                                     ******** GX
+    _ns_inv                                                         ******** GX
+    _ns_n                                                           ******** GX
+    _ns_shift                                                       ******** GX
+  1 _o                                                              00000334 GR
+  1 _pos                                                            00000594 R
+    _pos_emb                                                        ******** GX
+  1 _q                                                              000002D4 GR
+    _rRAMB                                                          ******** GX
+    _rRAMG                                                          ******** GX
+    _rROMB0                                                         ******** GX
+  0 _residual_add                                                   0000041F R
+  0 _rmsnorm_q                                                      00000270 R
+  0 _rng_next                                                       00000F12 R
+  2 _rng_state                                                      00000004 R
+  1 _scores                                                         000003B4 GR
+    _tok_emb                                                        ******** GX
+  1 _v                                                              00000314 GR
+  1 _xvec                                                           0000000E GR
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 3
+Hexadecimal [32-Bits]
+
+Area Table
+
+   0 _CODE                                      size     10D5   flags    0
+   1 _DATA                                      size      615   flags    0
+   2 _INITIALIZED                               size        6   flags    0
+   3 _DABS                                      size        0   flags    8
+   4 _HOME                                      size        0   flags    0
+   5 _GSINIT                                    size        0   flags    0
+   6 _GSFINAL                                   size        0   flags    0
+   7 _INITIALIZER                               size        6   flags    0
+   8 _CABS                                      size        0   flags    8
+

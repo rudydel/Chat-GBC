@@ -5,6 +5,7 @@
   "n_heads": 3,
   "d_ff": 96,
   "ctx": 128,
+  "n_extra_tokens": 138,
   "e_res": 10,
   "temperature": 0.8,
   "notes": "~48k parameters, default model shipped in the ROM (about 2.5 s per character on a DMG)"

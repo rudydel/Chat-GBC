@@ -10,15 +10,15 @@
 #   make eval         exact match / char error rate on training and held-out questions (integer model)
 #
 # Variables: MODEL=tiny (models/<MODEL>), CONFIG=configs/$(MODEL).json,
-#            TEXT=data/gameboy/corpus, CHAT=data/gameboy (every *.jsonl: facts + off-topic fallback),
+#            TEXT=data/gameboy/corpus (+ data/gameboy/wiki when fetched), CHAT=data/gameboy (every *.jsonl),
 #            AUGMENT=0.5 (question augmentation probability), HELDOUT=0.2 (held-out share per fact)
 
 MODEL   ?= tiny
 CONFIG  ?= configs/$(MODEL).json
-TEXT    ?= data/gameboy/corpus
+TEXT    ?= data/gameboy/corpus $(wildcard data/gameboy/wiki)
 CHAT    ?= data/gameboy
-PRETRAIN_STEPS ?= 6000
-SFT_STEPS      ?= 12000
+PRETRAIN_STEPS ?= 12000
+SFT_STEPS      ?= 8000
 AUGMENT ?= 0.5
 HELDOUT ?= 0.2
 PYTHON  ?= python3

@@ -21,7 +21,8 @@ on-screen keyboard:
   multiply instruction), a KV cache in cartridge SRAM, and a chat UI with a
   D-pad keyboard. Runs on a DMG, Game Boy Pocket/Light/Color and any
   emulator; uses an MBC5 + RAM cartridge (flash carts are fine).
-* **`llm/`** – the Python side: character tokenizer, quantization-aware
+* **`llm/`** – the Python side: subword tokenizer (learned from the data,
+  greedy longest match, mirrored in C), quantization-aware
   training (`train.py`), export to C (`export.py`), a bit-exact integer
   simulator of the ROM (`simulate.py`), and a terminal chat.
 * **`data/gameboy/`** – a curated Game Boy fact base (405 question/answer

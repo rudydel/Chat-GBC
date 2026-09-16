@@ -72,6 +72,9 @@ class IntModel:
         c = m["config"]
         self.D, self.H, self.HD = c["d_model"], c["n_heads"], c["d_model"] // c["n_heads"]
         self.F, self.T, self.L, self.V = c["d_ff"], c["ctx"], c["n_layers"], c["vocab_size"]
+        if "vocab" in m:
+            tok.set_vocab(m["vocab"])
+        assert self.V == tok.VOCAB_SIZE, "integer model and tokenizer vocabulary differ"
         self.reset()
 
     def reset(self):

@@ -30,6 +30,7 @@ from .augment import augment_question
 
 
 def load_text_files(paths):
+    """Paragraphs as normalised strings (encoded lazily, so the vocabulary may be learned from them first)."""
     docs = []
     for p in paths:
         files = sorted(glob.glob(os.path.join(p, "**", "*.txt"), recursive=True)) if os.path.isdir(p) else glob.glob(p)
@@ -37,9 +38,9 @@ def load_text_files(paths):
             with open(f, encoding="utf-8", errors="ignore") as fh:
                 text = fh.read()
             for para in text.split("\n\n"):
-                ids = tok.encode(para)
-                if len(ids) >= 8:
-                    docs.append(ids)
+                para = tok.normalize(para)
+                if len(para) >= 8:
+                    docs.append(para)
     return docs
 
 
@@ -104,7 +105,7 @@ class PackedStream:
     def __init__(self, docs, chats, ctx, chat_weight=0.5, answer_only=False, question_loss=0.0, seed=0,
                  augment=0.0, chat_weights=None):
         """
-        docs        : list of token-id lists (plain text)
+        docs        : list of normalised strings (plain text paragraphs)
         chats       : list of (question, answer) strings
         chat_weight : probability that the next packed item is a conversation
         answer_only : if True, plain text is never used (fine-tuning)
@@ -143,7 +144,7 @@ class PackedStream:
             a_ids = tok.encode(a) + [tok.EOS]
             return q_ids + a_ids, [self.question_loss] * len(q_ids) + [1.0] * len(a_ids)
         d = self.rng.choice(self.docs)
-        ids = d + [tok.EOS]
+        ids = tok.encode(d, normalize_text=False) + [tok.EOS]
         return ids, [1.0] * len(ids)
 
     def window(self):
@@ -166,5 +167,6 @@ class PackedStream:
 
 
 def describe(docs, chats):
-    ntok = sum(len(d) for d in docs)
-    return f"{len(docs)} text paragraphs ({ntok} tokens), {len(chats)} question/answer pairs"
+    nchar = sum(len(d) for d in docs)
+    ntok = sum(len(tok.encode(d, normalize_text=False)) for d in docs)
+    return f"{len(docs)} text paragraphs ({nchar} characters, {ntok} tokens), {len(chats)} question/answer pairs"

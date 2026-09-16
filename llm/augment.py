@@ -124,6 +124,15 @@ def op_typo(q, rng):
     return " ".join(w)
 
 
+def op_gameboy(q, rng):
+    """Write 'game boy' as one word (or 'game boy color' as 'gbc'), as most people type it."""
+    if "game boy color" in q and rng.random() < 0.3:
+        return q.replace("game boy color", "gbc")
+    if "game boy" in q:
+        return q.replace("game boy", "gameboy")
+    return q
+
+
 def op_truncate(q, rng):
     """Cut the question after a random word (the user hit START early or typed only the key words)."""
     w = _words(q)
@@ -137,6 +146,7 @@ def op_truncate(q, rng):
 # dominate; typos are kept rarer so the model does not learn to expect them.
 OPS = [
     (op_keywords, 3.0),
+    (op_gameboy, 2.0),
     (op_drop_filler, 2.0),
     (op_prefix, 1.5),
     (op_suffix, 1.5),

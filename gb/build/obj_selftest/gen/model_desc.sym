@@ -1,0 +1,209 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 1
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =   00002710 L
+    .__.ABS.                                                    =   00000000 G
+    .__.CPU.                                                    =   00000000 L
+    .__.H$L.                                                    =   00000000 L
+    _L0_w1                                                          ******** GX
+    _L0_w1_sq                                                       ******** GX
+    _L0_w2                                                          ******** GX
+    _L0_w2_sq                                                       ******** GX
+    _L0_wk                                                          ******** GX
+    _L0_wk_sq                                                       ******** GX
+    _L0_wo                                                          ******** GX
+    _L0_wo_sq                                                       ******** GX
+    _L0_wq                                                          ******** GX
+    _L0_wq_sq                                                       ******** GX
+    _L0_wv                                                          ******** GX
+    _L0_wv_sq                                                       ******** GX
+    _L1_w1                                                          ******** GX
+    _L1_w1_sq                                                       ******** GX
+    _L1_w2                                                          ******** GX
+    _L1_w2_sq                                                       ******** GX
+    _L1_wk                                                          ******** GX
+    _L1_wk_sq                                                       ******** GX
+    _L1_wo                                                          ******** GX
+    _L1_wo_sq                                                       ******** GX
+    _L1_wq                                                          ******** GX
+    _L1_wq_sq                                                       ******** GX
+    _L1_wv                                                          ******** GX
+    _L1_wv_sq                                                       ******** GX
+  0 __str_0                                                         000001E1 R
+  0 __str_1                                                         000001E2 R
+  0 __str_10                                                        000001F4 R
+  0 __str_100                                                       00000302 R
+  0 __str_101                                                       00000308 R
+  0 __str_102                                                       00000310 R
+  0 __str_103                                                       00000314 R
+  0 __str_104                                                       00000318 R
+  0 __str_105                                                       0000031B R
+  0 __str_106                                                       0000031E R
+  0 __str_107                                                       00000321 R
+  0 __str_108                                                       0000032E R
+  0 __str_109                                                       0000033A R
+  0 __str_11                                                        000001F6 R
+  0 __str_110                                                       00000341 R
+  0 __str_111                                                       00000344 R
+  0 __str_112                                                       00000347 R
+  0 __str_113                                                       0000034A R
+  0 __str_114                                                       0000034D R
+  0 __str_115                                                       00000351 R
+  0 __str_116                                                       00000356 R
+  0 __str_117                                                       00000359 R
+  0 __str_118                                                       0000035E R
+  0 __str_119                                                       00000361 R
+  0 __str_12                                                        000001F8 R
+  0 __str_120                                                       00000364 R
+  0 __str_121                                                       00000368 R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 2
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+  0 __str_122                                                       0000036B R
+  0 __str_123                                                       0000036E R
+  0 __str_124                                                       00000371 R
+  0 __str_13                                                        000001FA R
+  0 __str_14                                                        000001FC R
+  0 __str_15                                                        000001FE R
+  0 __str_16                                                        00000200 R
+  0 __str_17                                                        00000202 R
+  0 __str_18                                                        00000204 R
+  0 __str_19                                                        00000206 R
+  0 __str_2                                                         000001E4 R
+  0 __str_20                                                        00000208 R
+  0 __str_21                                                        0000020A R
+  0 __str_22                                                        0000020C R
+  0 __str_23                                                        0000020E R
+  0 __str_24                                                        00000210 R
+  0 __str_25                                                        00000212 R
+  0 __str_26                                                        00000214 R
+  0 __str_27                                                        00000216 R
+  0 __str_28                                                        00000218 R
+  0 __str_29                                                        0000021A R
+  0 __str_3                                                         000001E6 R
+  0 __str_30                                                        0000021C R
+  0 __str_31                                                        0000021E R
+  0 __str_32                                                        00000220 R
+  0 __str_33                                                        00000222 R
+  0 __str_34                                                        00000224 R
+  0 __str_35                                                        00000226 R
+  0 __str_36                                                        00000228 R
+  0 __str_37                                                        0000022A R
+  0 __str_38                                                        0000022C R
+  0 __str_39                                                        0000022E R
+  0 __str_4                                                         000001E8 R
+  0 __str_40                                                        00000230 R
+  0 __str_41                                                        00000232 R
+  0 __str_42                                                        00000234 R
+  0 __str_43                                                        00000236 R
+  0 __str_44                                                        00000238 R
+  0 __str_45                                                        0000023A R
+  0 __str_46                                                        0000023C R
+  0 __str_47                                                        0000023E R
+  0 __str_48                                                        00000240 R
+  0 __str_49                                                        00000242 R
+  0 __str_5                                                         000001EA R
+  0 __str_50                                                        00000244 R
+  0 __str_51                                                        00000246 R
+  0 __str_52                                                        00000249 R
+  0 __str_53                                                        0000024C R
+  0 __str_54                                                        0000024F R
+  0 __str_55                                                        00000252 R
+  0 __str_56                                                        00000255 R
+  0 __str_57                                                        00000258 R
+  0 __str_58                                                        0000025B R
+  0 __str_59                                                        0000025E R
+  0 __str_6                                                         000001EC R
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 3
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+  0 __str_60                                                        00000262 R
+  0 __str_61                                                        00000265 R
+  0 __str_62                                                        00000269 R
+  0 __str_63                                                        0000026E R
+  0 __str_64                                                        00000271 R
+  0 __str_65                                                        00000275 R
+  0 __str_66                                                        00000278 R
+  0 __str_67                                                        0000027B R
+  0 __str_68                                                        00000281 R
+  0 __str_69                                                        00000286 R
+  0 __str_7                                                         000001EE R
+  0 __str_70                                                        00000289 R
+  0 __str_71                                                        0000028C R
+  0 __str_72                                                        0000028F R
+  0 __str_73                                                        00000292 R
+  0 __str_74                                                        00000295 R
+  0 __str_75                                                        00000298 R
+  0 __str_76                                                        000002A2 R
+  0 __str_77                                                        000002AC R
+  0 __str_78                                                        000002AF R
+  0 __str_79                                                        000002B3 R
+  0 __str_8                                                         000001F0 R
+  0 __str_80                                                        000002B6 R
+  0 __str_81                                                        000002B9 R
+  0 __str_82                                                        000002BC R
+  0 __str_83                                                        000002BF R
+  0 __str_84                                                        000002C2 R
+  0 __str_85                                                        000002C7 R
+  0 __str_86                                                        000002CA R
+  0 __str_87                                                        000002CF R
+  0 __str_88                                                        000002D2 R
+  0 __str_89                                                        000002D5 R
+  0 __str_9                                                         000001F2 R
+  0 __str_90                                                        000002D8 R
+  0 __str_91                                                        000002DB R
+  0 __str_92                                                        000002E2 R
+  0 __str_93                                                        000002E5 R
+  0 __str_94                                                        000002E8 R
+  0 __str_95                                                        000002EB R
+  0 __str_96                                                        000002EF R
+  0 __str_97                                                        000002F2 R
+  0 __str_98                                                        000002F8 R
+  0 __str_99                                                        000002FC R
+  0 _dot_entries                                                    00000055 GR
+    _dot_from_0                                                     ******** GX
+    _dot_from_16                                                    ******** GX
+    _dot_from_32                                                    ******** GX
+    _dot_from_48                                                    ******** GX
+    _dot_from_64                                                    ******** GX
+    _dot_from_80                                                    ******** GX
+  0 _layer_cfg                                                      00000041 GR
+    _lm_head                                                        ******** GX
+    _lm_head_sq                                                     ******** GX
+  0 _mat_lm                                                         0000003C GR
+  0 _mat_w1                                                         00000028 GR
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 4
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+  0 _mat_w2                                                         00000032 GR
+  0 _mat_wk                                                         0000000A GR
+  0 _mat_wo                                                         0000001E GR
+  0 _mat_wq                                                         00000000 GR
+  0 _mat_wv                                                         00000014 GR
+  0 _tok_len                                                        00000161 GR
+  0 _tok_str                                                        00000061 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 5
+Hexadecimal [32-Bits]
+
+Area Table
+
+   0 _CODE                                      size      374   flags    0
+   1 _DATA                                      size        0   flags    0
+   2 _INITIALIZED                               size        0   flags    0
+   3 _DABS                                      size        0   flags    8
+   4 _HOME                                      size        0   flags    0
+   5 _GSINIT                                    size        0   flags    0
+   6 _GSFINAL                                   size        0   flags    0
+   7 _INITIALIZER                               size        0   flags    0
+   8 _CABS                                      size        0   flags    8
+

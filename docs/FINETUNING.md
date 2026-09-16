@@ -57,8 +57,13 @@ Tips
   otherwise the model forgets its fallback answer. A line can carry
   `"weight": 0.5` to be sampled half as often per variant (the off-topic
   lines do, so they make up about a fifth of the SFT samples).
-* Only `a-z 0-9 space . , ? ! ' - : ( ) / & " ;` exist in the vocabulary;
+* Only `a-z 0-9 space . , ? ! ' - : ( ) / & " ;` exist as characters;
   `llm/tokenizer.py` lower-cases and strips accents, everything else is dropped.
+  On top of these characters the trainer learns `n_extra_tokens` subword
+  tokens (words, word pieces, short phrases) from the corpus and the
+  conversations before training starts; they are stored in the checkpoint,
+  written to `<out>/vocab.json` and exported into the ROM. A fine-tuning run
+  (`--init`) keeps the checkpoint's vocabulary.
 * A 48k parameter model memorises a few hundred short facts. If recall
   drops when you add many more facts, use `configs/micro.json` (115k
   parameters; needs a 64 KiB SRAM cartridge, slower on a DMG) or train

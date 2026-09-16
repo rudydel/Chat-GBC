@@ -29,6 +29,7 @@ import time
 
 import torch
 
+from . import tokenizer as tok
 from .data import load_text_files, load_chat_groups, flatten_groups, split_heldout, pairs, PackedStream, describe
 from .evaluate import float_replier, int_replier, score, report
 from .model import NanoGPT, ModelConfig, save_checkpoint, load_checkpoint
@@ -125,19 +126,30 @@ def main():
     random.seed(args.seed)
     os.makedirs(args.out, exist_ok=True)
 
-    if args.init:
-        model, _ = load_checkpoint(args.init)
-        cfg = model.cfg
-        print(f"loaded {args.init}")
-    else:
-        cfg = ModelConfig.load(args.config) if args.config else ModelConfig()
-        model = NanoGPT(cfg)
-    print(f"model {cfg.name}: {model.num_params()} parameters, ctx {cfg.ctx}")
-
     docs = load_text_files(args.text)
     train_items, held_items = split_heldout(load_chat_groups(args.chat), args.heldout, args.seed)
     held_items += flatten_groups(load_chat_groups(args.heldout_chat))
     chats, chat_weights = pairs(train_items), [it["w"] for it in train_items]
+
+    if args.init:
+        model, _ = load_checkpoint(args.init)          # installs the checkpoint's vocabulary
+        cfg = model.cfg
+        print(f"loaded {args.init}")
+    else:
+        cfg = ModelConfig.load(args.config) if args.config else ModelConfig()
+        if cfg.n_extra_tokens > 0:
+            # subword tokens learned from the prose and (weighted) from the conversations
+            texts = docs + [q for q, _ in chats] * 3 + [a for _, a in chats] * 3
+            t0 = time.time()
+            tok.learn_vocab(texts, cfg.n_extra_tokens)
+            print(f"learned {cfg.n_extra_tokens} subword tokens in {time.time() - t0:.0f}s: "
+                  + " ".join(repr(t) for t in tok.extra_vocab()[:24]) + " ...")
+        else:
+            tok.set_vocab([])
+        model = NanoGPT(cfg)
+    with open(os.path.join(args.out, "vocab.json"), "w") as f:
+        json.dump(tok.extra_vocab(), f)
+    print(f"model {cfg.name}: {model.num_params()} parameters, ctx {cfg.ctx}, vocabulary {cfg.vocab_size} tokens")
     print("data:", describe(docs, chats), f"+ {len(held_items)} held-out questions")
     with open(os.path.join(args.out, "heldout.jsonl"), "w") as f:
         for it in held_items:

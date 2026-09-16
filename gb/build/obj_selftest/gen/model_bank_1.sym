@@ -1,0 +1,49 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 1
+Hexadecimal [32-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =   00002710 L
+    .__.ABS.                                                    =   00000000 G
+    .__.CPU.                                                    =   00000000 L
+    .__.H$L.                                                    =   00000000 L
+  7 _L0_w1                                                          00001200 GR
+  7 _L0_w1_sq                                                       00001A00 GR
+  7 _L0_w2                                                          00001B00 GR
+  7 _L0_w2_sq                                                       00002300 GR
+  7 _L0_wk                                                          00000480 GR
+  7 _L0_wk_sq                                                       00000880 GR
+  7 _L0_wo                                                          00000D80 GR
+  7 _L0_wo_sq                                                       00001180 GR
+  7 _L0_wq                                                          00000000 GR
+  7 _L0_wq_sq                                                       00000400 GR
+  7 _L0_wv                                                          00000900 GR
+  7 _L0_wv_sq                                                       00000D00 GR
+  7 _L1_w1                                                          00003580 GR
+  7 _L1_w1_sq                                                       00003D80 GR
+  7 _L1_wk                                                          00002800 GR
+  7 _L1_wk_sq                                                       00002C00 GR
+  7 _L1_wo                                                          00003100 GR
+  7 _L1_wo_sq                                                       00003500 GR
+  7 _L1_wq                                                          00002380 GR
+  7 _L1_wq_sq                                                       00002780 GR
+  7 _L1_wv                                                          00002C80 GR
+  7 _L1_wv_sq                                                       00003080 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (GameBoy)                  Page 2
+Hexadecimal [32-Bits]
+
+Area Table
+
+   0 _CODE                                      size        0   flags    0
+   1 _DATA                                      size        0   flags    0
+   2 _INITIALIZED                               size        0   flags    0
+   3 _DABS                                      size        0   flags    8
+   4 _HOME                                      size        0   flags    0
+   5 _GSINIT                                    size        0   flags    0
+   6 _GSFINAL                                   size        0   flags    0
+   7 _CODE_1                                    size     3E80   flags    0
+   8 _INITIALIZER                               size        0   flags    0
+   9 _CABS                                      size        0   flags    8
+
