@@ -161,7 +161,7 @@ answer looks right there, it will look the same on the console.
 |--------|--------|---------|--------|-------|------|-----|-------|------------|---------------|------------------------------------|
 | nano   | 28k    | 32      | 2      | 2     | 64   | 96  | 128   | 128 KiB / 32 KiB | ~0.5 | (not trained) |
 | tiny   | 62k    | 48      | 2      | 3     | 96   | 128 | 192   | 128 KiB / 32 KiB | ~0.9 | 100% / 44% (facts 32%, off-topic 73%) |
-| micro  | 146k   | 64      | 3      | 4     | 128  | 112 | 255   | 256 KiB / 128 KiB | ~2 | MICRO_RESULTS |
+| micro  | 146k   | 64      | 3      | 4     | 128  | 112 | 255   | 256 KiB / 128 KiB | ~2 | (retraining with the 238-token vocabulary) |
 
 `vocab` is the base of 54 characters plus `n_extra_tokens` learned subword
 tokens; with ~2.4 characters per token, the seconds per character are about
