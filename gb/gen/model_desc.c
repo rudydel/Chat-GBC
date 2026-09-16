@@ -28,8 +28,8 @@ const mat_t mat_w2[M_L] = {
 const mat_t mat_lm = { lm_head, lm_head_sq, 3 };
 
 const layer_cfg_t layer_cfg[M_L] = {
-    { 7, 7, 7, 5, 8, 6, 5, 8, 8192 },
-    { 6, 7, 7, 5, 8, 7, 2, 8, 8192 },
+    { 6, 7, 8, 5, 8, 6, 5, 8, 8192 },
+    { 7, 7, 7, 5, 8, 7, 3, 8, 8192 },
 };
 
 const dotfn_t dot_entries[M_NMAX / 16] = {

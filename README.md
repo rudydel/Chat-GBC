@@ -33,9 +33,11 @@ on-screen keyboard:
 The shipped model (`models/tiny`, 48k parameters) answers questions about
 the history and hardware of the Game Boy, one character every ~2.5 seconds
 on an original Game Boy (half that on a Game Boy Color). It reproduces
-about 9 out of 10 of the 405 training questions verbatim (`train_log.txt`),
-and the emulator test confirms the console prints exactly what the Python
-simulator predicts.
+99% of its training questions verbatim, answers 14% of held-out phrasings
+it never saw and declines 83% of unseen off-topic questions with "sorry, i
+only know about the game boy" (`models/tiny/train_log.txt`), and the
+emulator test confirms the console prints exactly what the Python simulator
+predicts.
 
 ```
 > who designed the game boy          > what cpu does the game boy use
@@ -108,7 +110,11 @@ tools/           gbdk_setup.sh, fontgen.py, emu_test.py, selftest.py, check_map.
 ## Honest expectations
 
 A 48k parameter character-level model is about the size of a single
-attention head of a modern LLM. It memorises the facts it was fine-tuned on
-and answers paraphrased questions reasonably, but it does not reason, and
-off-topic questions produce Game-Boy-flavoured nonsense. That is the point:
-the whole model and its inference engine fit in a 128 KiB cartridge from 1989.
+attention head of a modern LLM. It memorises the facts it was fine-tuned on,
+copes with some rephrasing (key words, typos, missing question words) thanks
+to the training augmentation, and usually says "sorry, i only know about the
+game boy" when asked something else. It does not reason, a phrasing far from
+anything it has seen still produces Game-Boy-flavoured nonsense, and the
+held-out numbers in `docs/FINETUNING.md` are the honest measure. That is the
+point: the whole model and its inference engine fit in a 128 KiB cartridge
+from 1989.

@@ -81,11 +81,15 @@ by a user. The trainer therefore splits the question variants:
 The final report (also in `train_log.txt`) shows, per source file:
 
 ```
-[int] train questions: exact match ..%, char error rate .... (80 questions)
-[int] held-out questions: exact match ..%, char error rate .... (144 questions)
-    facts.jsonl          exact  ..%  cer ....  (103)
-    offtopic.jsonl       exact  ..%  cer ....  (41)
-  BAD q: ...
+[int] train questions: exact match 99%, char error rate 0.00 (80 questions)
+    facts.jsonl          exact  98%  cer 0.00  (47)
+    offtopic.jsonl       exact 100%  cer 0.00  (33)
+[int] held-out questions: exact match 33%, char error rate 0.68 (144 questions)
+    facts.jsonl          exact  14%  cer 0.89  (103)
+    offtopic.jsonl       exact  83%  cer 0.16  (41)
+  BAD q: release date of the game boy
+      got: july 31, 1989
+      exp: april 21, 1989 in japan
 ```
 
 *exact match* is the share of answers that equal the expected answer
@@ -102,8 +106,14 @@ python3 -m llm.evaluate models/tiny/ckpt.pt --chat data/gameboy --heldout 0.2 --
 
 When you change the recipe, compare the held-out numbers between runs. The
 question augmentation (`--augment`, default 0.5: the probability that a
-training question is rephrased) exists for exactly this metric; set it to 0
-to see what it buys.
+training question is rephrased) exists for exactly this metric. Measured on
+`tiny` with the same split (float model): without augmentation 12% of the
+held-out fact phrasings are answered exactly (char error rate 1.12), with it
+22% (0.83); the fallback on unseen off-topic questions goes from 78% to 85%
+and training recall stays at 95-96%. The integer model is a little worse
+off-distribution than the float model (14% vs 22% on held-out facts) because
+its softmax and rounding are approximations that quantization-aware training
+does not model, so judge with `--eval-int` before flashing.
 
 ## 4. Pre-train on Game Boy history from the web
 
@@ -139,11 +149,11 @@ answer looks right there, it will look the same on the console.
 
 ## 6. Model configurations
 
-| config | params | d_model | layers | heads | d_ff | ctx | ROM / SRAM | s/char on DMG | exact recall |
-|--------|--------|---------|--------|-------|------|-----|------------|---------------|--------------|
+| config | params | d_model | layers | heads | d_ff | ctx | ROM / SRAM | s/char on DMG | exact match train / held-out |
+|--------|--------|---------|--------|-------|------|-----|------------|---------------|------------------------------|
 | nano   | 23k    | 32      | 2      | 2     | 64   | 96  | 128 KiB / 32 KiB | ~1.2 | (not trained) |
-| tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 128 KiB / 32 KiB | ~2.2 | 88% |
-| micro  | 112k   | 64      | 3      | 4     | 128  | 112 | 256 KiB / 128 KiB | ~5.2 | 100% |
+| tiny   | 48k    | 48      | 2      | 3     | 96   | 128 | 128 KiB / 32 KiB | ~2.2 | 99% / 33% (facts 14%, off-topic 83%) |
+| micro  | 112k   | 64      | 3      | 4     | 128  | 112 | 256 KiB / 128 KiB | ~5.2 | 100% / – (trained on all variants, before augmentation and off-topic data existed) |
 
 `micro` needs 6 SRAM banks; the cartridge header declares 128 KiB because
 the header only encodes 8, 32 or 128 KiB. Both trained models are in

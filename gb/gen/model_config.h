@@ -15,10 +15,10 @@
 #define M_BIAS 63
 #define M_E_RES 10
 #define M_TOK_SHIFT 6
-#define M_POS_SHIFT 6
+#define M_POS_SHIFT 5
 #define M_NORM_K 7264748UL
 #define M_NORM_K_BITS 16
-#define M_LM_MUL 20480
+#define M_LM_MUL 10240
 #define M_SCALE_SHIFT 16
 #define M_EXP_MAX 126
 #define M_MAX_LOGIT_DIFF 32767L
