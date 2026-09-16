@@ -60,6 +60,10 @@ class ModelConfig:
         assert 16 <= self.ctx <= 256
         assert 0 <= self.n_extra_tokens <= tok.MAX_VOCAB - tok.BASE_SIZE, "too many subword tokens (ids are one byte)"
         assert self.vocab_size == tok.BASE_SIZE + self.n_extra_tokens, "vocab_size must be BASE_SIZE + n_extra_tokens"
+        # every weight matrix lives in one 16 KiB ROM bank: rows * (cols + 4 bytes of row sums), see export.py
+        for rows, cols, what in ((self.vocab_size, self.d_model, "vocab_size * (d_model + 4)"),
+                                 (self.d_ff, self.d_model, "d_ff * (d_model + 4)"), (self.d_model, self.d_ff, "d_model * (d_ff + 4)")):
+            assert rows * (cols + 4) <= 16 * 1024 - 64, f"{what} must fit one ROM bank (16320 bytes): reduce n_extra_tokens"
         assert self.n_layers <= 8, "at most 8 layers (16 SRAM banks of 8 KiB)"
         # per layer: one 8 KiB SRAM bank for K + row sums, one for V + sums (see gb/src/llm.c)
         assert self.ctx * self.d_model + self.ctx * self.n_heads * 2 <= 8192, \
