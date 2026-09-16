@@ -1,5 +1,9 @@
 # Chat-GBC: a nano LLM that runs on a Game Boy
 
+<p align="center">
+   <img src="https://github.com/rudydel/Chat-GBC/blob/a4998dd6a264bcf09c0aa021435ea4eb7af5b0b6/chatGBC_thumbnail.jpg" width="256">
+</p>
+
 Chat-GBC is a complete pipeline for putting a (very) small transformer
 language model on an original 1989 Game Boy and chatting with it through an
 on-screen keyboard:
