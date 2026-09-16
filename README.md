@@ -72,9 +72,10 @@ python3 -m llm.export models/tiny/ckpt.pt   # writes gb/gen/* and models/tiny/mo
 make -C gb                                  # -> gb/build/chatgbc.gb
 ```
 
-or simply `make rom` (`MODEL=micro` for the larger 146k-parameter model,
-prebuilt as `gb/build/chatgbc-micro.gb`: best held-out accuracy, about
-twice as slow, needs a 128 KiB-SRAM cartridge; `MODEL=nano` for the smallest).
+or simply `make rom` (`MODEL=micro` for the larger 136k-parameter model,
+prebuilt as `gb/build/chatgbc-micro.gb`: 40% of held-out phrasings and 80%
+of unseen off-topic questions right against 32% / 73% for tiny, about twice
+as slow, needs a 128 KiB-SRAM cartridge; `MODEL=nano` for the smallest).
 `make test` then drives the ROM in an emulator and verifies that the
 Game Boy produces exactly the same characters as the Python simulator.
 

@@ -1,188 +1,311 @@
-# 2026-09-15 22:51:34 {'config': 'configs/micro.json', 'init': None, 'out': 'models/micro', 'text': ['data/gameboy/corpus'], 'chat': ['data/gameboy/facts.jsonl'], 'pretrain_steps': 6000, 'sft_steps': 10000, 'batch': 32, 'lr': 0.006, 'sft_lr': 0.004, 'chat_weight': 0.5, 'question_loss': 0.1, 'seed': 0, 'threads': 0, 'eval_n': 80}
-[pretrain] step     0/6000 loss 3.975 (ema 3.975) lr 6.00e-05 0s
-[pretrain] step   100/6000 loss 2.280 (ema 2.802) lr 6.00e-03 4s
-[pretrain] step   200/6000 loss 1.265 (ema 1.870) lr 6.00e-03 8s
-[pretrain] step   300/6000 loss 1.000 (ema 1.256) lr 5.98e-03 12s
-[pretrain] step   400/6000 loss 1.109 (ema 1.064) lr 5.97e-03 16s
-[pretrain] step   500/6000 loss 0.945 (ema 1.016) lr 5.94e-03 20s
-[pretrain] step   600/6000 loss 0.931 (ema 0.976) lr 5.90e-03 24s
-[pretrain] step   700/6000 loss 0.927 (ema 0.935) lr 5.86e-03 28s
-[pretrain] step   800/6000 loss 0.704 (ema 0.876) lr 5.81e-03 32s
-[pretrain] step   900/6000 loss 0.682 (ema 0.830) lr 5.76e-03 36s
-[pretrain] step  1000/6000 loss 0.741 (ema 0.796) lr 5.70e-03 40s
-[pretrain] step  1100/6000 loss 0.715 (ema 0.737) lr 5.63e-03 43s
-[pretrain] step  1200/6000 loss 0.500 (ema 0.693) lr 5.55e-03 47s
-[pretrain] step  1300/6000 loss 0.696 (ema 0.648) lr 5.47e-03 51s
-[pretrain] step  1400/6000 loss 0.497 (ema 0.608) lr 5.38e-03 55s
-[pretrain] step  1500/6000 loss 0.501 (ema 0.567) lr 5.28e-03 59s
-[pretrain] step  1600/6000 loss 0.461 (ema 0.541) lr 5.18e-03 63s
-[pretrain] step  1700/6000 loss 0.452 (ema 0.505) lr 5.08e-03 67s
-[pretrain] step  1800/6000 loss 0.316 (ema 0.470) lr 4.97e-03 71s
-[pretrain] step  1900/6000 loss 0.382 (ema 0.443) lr 4.85e-03 74s
-[pretrain] step  2000/6000 loss 0.530 (ema 0.431) lr 4.73e-03 78s
-[pretrain] step  2100/6000 loss 0.358 (ema 0.402) lr 4.61e-03 83s
-[pretrain] step  2200/6000 loss 0.437 (ema 0.382) lr 4.48e-03 86s
-[pretrain] step  2300/6000 loss 0.371 (ema 0.354) lr 4.35e-03 91s
-[pretrain] step  2400/6000 loss 0.438 (ema 0.338) lr 4.22e-03 94s
-[pretrain] step  2500/6000 loss 0.455 (ema 0.316) lr 4.08e-03 98s
-[pretrain] step  2600/6000 loss 0.342 (ema 0.320) lr 3.94e-03 102s
-[pretrain] step  2700/6000 loss 0.303 (ema 0.301) lr 3.80e-03 106s
-[pretrain] step  2800/6000 loss 0.285 (ema 0.284) lr 3.66e-03 111s
-[pretrain] step  2900/6000 loss 0.301 (ema 0.276) lr 3.52e-03 115s
-[pretrain] step  3000/6000 loss 0.246 (ema 0.257) lr 3.37e-03 119s
-[pretrain] step  3100/6000 loss 0.203 (ema 0.244) lr 3.23e-03 123s
-[pretrain] step  3200/6000 loss 0.246 (ema 0.234) lr 3.08e-03 127s
-[pretrain] step  3300/6000 loss 0.252 (ema 0.225) lr 2.94e-03 131s
-[pretrain] step  3400/6000 loss 0.254 (ema 0.216) lr 2.80e-03 135s
-[pretrain] step  3500/6000 loss 0.192 (ema 0.213) lr 2.66e-03 139s
-[pretrain] step  3600/6000 loss 0.212 (ema 0.208) lr 2.52e-03 143s
-[pretrain] step  3700/6000 loss 0.208 (ema 0.203) lr 2.38e-03 146s
-[pretrain] step  3800/6000 loss 0.238 (ema 0.196) lr 2.25e-03 150s
-[pretrain] step  3900/6000 loss 0.136 (ema 0.189) lr 2.12e-03 154s
-[pretrain] step  4000/6000 loss 0.197 (ema 0.179) lr 1.99e-03 158s
-[pretrain] step  4100/6000 loss 0.187 (ema 0.175) lr 1.87e-03 162s
-[pretrain] step  4200/6000 loss 0.140 (ema 0.170) lr 1.75e-03 166s
-[pretrain] step  4300/6000 loss 0.156 (ema 0.167) lr 1.63e-03 171s
-[pretrain] step  4400/6000 loss 0.183 (ema 0.162) lr 1.52e-03 175s
-[pretrain] step  4500/6000 loss 0.139 (ema 0.157) lr 1.42e-03 179s
-[pretrain] step  4600/6000 loss 0.160 (ema 0.152) lr 1.32e-03 183s
-[pretrain] step  4700/6000 loss 0.082 (ema 0.149) lr 1.22e-03 187s
-[pretrain] step  4800/6000 loss 0.107 (ema 0.147) lr 1.13e-03 191s
-[pretrain] step  4900/6000 loss 0.146 (ema 0.146) lr 1.05e-03 195s
-[pretrain] step  5000/6000 loss 0.184 (ema 0.142) lr 9.74e-04 199s
-[pretrain] step  5100/6000 loss 0.136 (ema 0.138) lr 9.04e-04 203s
-[pretrain] step  5200/6000 loss 0.141 (ema 0.138) lr 8.41e-04 207s
-[pretrain] step  5300/6000 loss 0.119 (ema 0.131) lr 7.85e-04 211s
-[pretrain] step  5400/6000 loss 0.120 (ema 0.130) lr 7.37e-04 215s
-[pretrain] step  5500/6000 loss 0.110 (ema 0.130) lr 6.95e-04 218s
-[pretrain] step  5600/6000 loss 0.129 (ema 0.129) lr 6.61e-04 222s
-[pretrain] step  5700/6000 loss 0.153 (ema 0.126) lr 6.34e-04 226s
-[pretrain] step  5800/6000 loss 0.162 (ema 0.130) lr 6.15e-04 230s
-[pretrain] step  5900/6000 loss 0.127 (ema 0.124) lr 6.04e-04 234s
-[pretrain] step  5999/6000 loss 0.130 (ema 0.125) lr 6.00e-04 238s
-[sft] step     0/10000 loss 0.198 (ema 0.198) lr 4.00e-05 0s
-[sft] step   100/10000 loss 0.222 (ema 0.197) lr 4.00e-03 4s
-[sft] step   200/10000 loss 0.211 (ema 0.221) lr 4.00e-03 8s
-[sft] step   300/10000 loss 0.212 (ema 0.205) lr 4.00e-03 12s
-[sft] step   400/10000 loss 0.165 (ema 0.188) lr 3.99e-03 16s
-[sft] step   500/10000 loss 0.146 (ema 0.166) lr 3.99e-03 20s
-[sft] step   600/10000 loss 0.149 (ema 0.157) lr 3.98e-03 24s
-[sft] step   700/10000 loss 0.145 (ema 0.149) lr 3.97e-03 28s
-[sft] step   800/10000 loss 0.144 (ema 0.137) lr 3.96e-03 32s
-[sft] step   900/10000 loss 0.136 (ema 0.130) lr 3.94e-03 36s
-[sft] step  1000/10000 loss 0.136 (ema 0.126) lr 3.93e-03 40s
-[sft] step  1100/10000 loss 0.139 (ema 0.120) lr 3.91e-03 44s
-[sft] step  1200/10000 loss 0.110 (ema 0.114) lr 3.89e-03 49s
-[sft] step  1300/10000 loss 0.107 (ema 0.110) lr 3.87e-03 53s
-[sft] step  1400/10000 loss 0.108 (ema 0.106) lr 3.85e-03 57s
-[sft] step  1500/10000 loss 0.083 (ema 0.100) lr 3.83e-03 61s
-[sft] step  1600/10000 loss 0.095 (ema 0.100) lr 3.80e-03 65s
-[sft] step  1700/10000 loss 0.084 (ema 0.094) lr 3.77e-03 69s
-[sft] step  1800/10000 loss 0.079 (ema 0.092) lr 3.74e-03 73s
-[sft] step  1900/10000 loss 0.105 (ema 0.091) lr 3.71e-03 77s
-[sft] step  2000/10000 loss 0.074 (ema 0.090) lr 3.68e-03 82s
-[sft] step  2100/10000 loss 0.089 (ema 0.085) lr 3.65e-03 86s
-[sft] step  2200/10000 loss 0.070 (ema 0.083) lr 3.61e-03 89s
-[sft] step  2300/10000 loss 0.092 (ema 0.081) lr 3.58e-03 94s
-[sft] step  2400/10000 loss 0.080 (ema 0.079) lr 3.54e-03 97s
-[sft] step  2500/10000 loss 0.076 (ema 0.079) lr 3.50e-03 101s
-[sft] step  2600/10000 loss 0.074 (ema 0.075) lr 3.46e-03 105s
-[sft] step  2700/10000 loss 0.061 (ema 0.073) lr 3.42e-03 109s
-[sft] step  2800/10000 loss 0.074 (ema 0.070) lr 3.38e-03 113s
-[sft] step  2900/10000 loss 0.086 (ema 0.067) lr 3.33e-03 117s
-[sft] step  3000/10000 loss 0.071 (ema 0.068) lr 3.29e-03 121s
-[sft] step  3100/10000 loss 0.062 (ema 0.064) lr 3.24e-03 125s
-[sft] step  3200/10000 loss 0.066 (ema 0.065) lr 3.20e-03 129s
-[sft] step  3300/10000 loss 0.056 (ema 0.060) lr 3.15e-03 132s
-[sft] step  3400/10000 loss 0.053 (ema 0.062) lr 3.10e-03 136s
-[sft] step  3500/10000 loss 0.049 (ema 0.061) lr 3.05e-03 140s
-[sft] step  3600/10000 loss 0.062 (ema 0.058) lr 3.00e-03 144s
-[sft] step  3700/10000 loss 0.058 (ema 0.057) lr 2.95e-03 148s
-[sft] step  3800/10000 loss 0.045 (ema 0.055) lr 2.90e-03 152s
-[sft] step  3900/10000 loss 0.053 (ema 0.053) lr 2.84e-03 156s
-[sft] step  4000/10000 loss 0.062 (ema 0.053) lr 2.79e-03 160s
-[sft] step  4100/10000 loss 0.053 (ema 0.051) lr 2.73e-03 164s
-[sft] step  4200/10000 loss 0.057 (ema 0.050) lr 2.68e-03 168s
-[sft] step  4300/10000 loss 0.039 (ema 0.048) lr 2.62e-03 172s
-[sft] step  4400/10000 loss 0.041 (ema 0.046) lr 2.57e-03 176s
-[sft] step  4500/10000 loss 0.043 (ema 0.047) lr 2.51e-03 180s
-[sft] step  4600/10000 loss 0.042 (ema 0.046) lr 2.46e-03 184s
-[sft] step  4700/10000 loss 0.042 (ema 0.046) lr 2.40e-03 187s
-[sft] step  4800/10000 loss 0.036 (ema 0.044) lr 2.34e-03 191s
-[sft] step  4900/10000 loss 0.041 (ema 0.043) lr 2.29e-03 195s
-[sft] step  5000/10000 loss 0.043 (ema 0.043) lr 2.23e-03 199s
-[sft] step  5100/10000 loss 0.038 (ema 0.040) lr 2.17e-03 203s
-[sft] step  5200/10000 loss 0.044 (ema 0.040) lr 2.11e-03 207s
-[sft] step  5300/10000 loss 0.041 (ema 0.039) lr 2.06e-03 211s
-[sft] step  5400/10000 loss 0.036 (ema 0.039) lr 2.00e-03 215s
-[sft] step  5500/10000 loss 0.037 (ema 0.038) lr 1.94e-03 219s
-[sft] step  5600/10000 loss 0.034 (ema 0.038) lr 1.89e-03 223s
-[sft] step  5700/10000 loss 0.035 (ema 0.037) lr 1.83e-03 227s
-[sft] step  5800/10000 loss 0.037 (ema 0.036) lr 1.78e-03 231s
-[sft] step  5900/10000 loss 0.031 (ema 0.035) lr 1.72e-03 235s
-[sft] step  6000/10000 loss 0.035 (ema 0.034) lr 1.67e-03 239s
-[sft] step  6100/10000 loss 0.039 (ema 0.034) lr 1.61e-03 243s
-[sft] step  6200/10000 loss 0.037 (ema 0.034) lr 1.56e-03 247s
-[sft] step  6300/10000 loss 0.036 (ema 0.033) lr 1.50e-03 251s
-[sft] step  6400/10000 loss 0.030 (ema 0.032) lr 1.45e-03 255s
-[sft] step  6500/10000 loss 0.033 (ema 0.032) lr 1.40e-03 259s
-[sft] step  6600/10000 loss 0.033 (ema 0.032) lr 1.35e-03 263s
-[sft] step  6700/10000 loss 0.032 (ema 0.030) lr 1.30e-03 267s
-[sft] step  6800/10000 loss 0.031 (ema 0.031) lr 1.25e-03 271s
-[sft] step  6900/10000 loss 0.026 (ema 0.030) lr 1.20e-03 275s
-[sft] step  7000/10000 loss 0.032 (ema 0.030) lr 1.16e-03 278s
-[sft] step  7100/10000 loss 0.028 (ema 0.029) lr 1.11e-03 282s
-[sft] step  7200/10000 loss 0.027 (ema 0.029) lr 1.07e-03 286s
-[sft] step  7300/10000 loss 0.026 (ema 0.028) lr 1.02e-03 290s
-[sft] step  7400/10000 loss 0.029 (ema 0.028) lr 9.79e-04 294s
-[sft] step  7500/10000 loss 0.026 (ema 0.028) lr 9.37e-04 298s
-[sft] step  7600/10000 loss 0.028 (ema 0.028) lr 8.97e-04 303s
-[sft] step  7700/10000 loss 0.028 (ema 0.027) lr 8.59e-04 307s
-[sft] step  7800/10000 loss 0.029 (ema 0.027) lr 8.21e-04 311s
-[sft] step  7900/10000 loss 0.028 (ema 0.027) lr 7.85e-04 315s
-[sft] step  8000/10000 loss 0.023 (ema 0.026) lr 7.51e-04 319s
-[sft] step  8100/10000 loss 0.028 (ema 0.026) lr 7.17e-04 323s
-[sft] step  8200/10000 loss 0.026 (ema 0.026) lr 6.86e-04 327s
-[sft] step  8300/10000 loss 0.025 (ema 0.026) lr 6.56e-04 331s
-[sft] step  8400/10000 loss 0.028 (ema 0.025) lr 6.27e-04 335s
-[sft] step  8500/10000 loss 0.026 (ema 0.025) lr 6.00e-04 339s
-[sft] step  8600/10000 loss 0.023 (ema 0.026) lr 5.75e-04 343s
-[sft] step  8700/10000 loss 0.027 (ema 0.025) lr 5.51e-04 347s
-[sft] step  8800/10000 loss 0.025 (ema 0.025) lr 5.29e-04 351s
-[sft] step  8900/10000 loss 0.024 (ema 0.025) lr 5.09e-04 355s
-[sft] step  9000/10000 loss 0.025 (ema 0.025) lr 4.90e-04 359s
-[sft] step  9100/10000 loss 0.027 (ema 0.025) lr 4.73e-04 363s
-[sft] step  9200/10000 loss 0.028 (ema 0.025) lr 4.58e-04 367s
-[sft] step  9300/10000 loss 0.028 (ema 0.024) lr 4.44e-04 371s
-[sft] step  9400/10000 loss 0.027 (ema 0.025) lr 4.33e-04 375s
-[sft] step  9500/10000 loss 0.023 (ema 0.025) lr 4.23e-04 379s
-[sft] step  9600/10000 loss 0.023 (ema 0.024) lr 4.14e-04 383s
-[sft] step  9700/10000 loss 0.023 (ema 0.024) lr 4.08e-04 387s
-[sft] step  9800/10000 loss 0.024 (ema 0.024) lr 4.04e-04 391s
-[sft] step  9900/10000 loss 0.022 (ema 0.024) lr 4.01e-04 395s
-[sft] step  9999/10000 loss 0.024 (ema 0.024) lr 4.00e-04 398s
-fact recall (exact match, greedy, 80 training questions): 100%
-  OK  q: what is play it loud
-      got: a 1995 line of game boys in red, yellow, green, blue, black, white and clear
-      exp: a 1995 line of game boys in red, yellow, green, blue, black, white and clear
-  OK  q: hello
-      got: hello! ask me about the game boy
-      exp: hello! ask me about the game boy
-  OK  q: what competed with the game boy
-      got: the atari lynx, the sega game gear and the turboexpress
-      exp: the atari lynx, the sega game gear and the turboexpress
-  OK  q: when was gunpei yokoi born
-      got: september 10, 1941
-      exp: september 10, 1941
-  OK  q: game boy color palette
-      got: 56 colors at once from a palette of 32,768
-      exp: 56 colors at once from a palette of 32,768
-  OK  q: when was wario land released
-      got: wario land: super mario land 3 came out in 1994
-      exp: wario land: super mario land 3 came out in 1994
-  OK  q: why does pokemon gold have a clock
-      got: an mbc3 mapper with a real time clock
-      exp: an mbc3 mapper with a real time clock
-  OK  q: game boy controls
-      got: a d-pad, a, b, start and select
-      exp: a d-pad, a, b, start and select
+# 2026-09-16 08:34:09 {'config': 'configs/micro.json', 'init': None, 'out': 'models/micro', 'text': ['data/gameboy/corpus'], 'chat': ['data/gameboy'], 'pretrain_steps': 12000, 'sft_steps': 8000, 'batch': 32, 'lr': 0.01, 'sft_lr': 0.006, 'chat_weight': 0.5, 'question_loss': 0.1, 'seed': 0, 'threads': 4, 'augment': 0.5, 'heldout': 0.2, 'heldout_chat': [], 'eval_n': 80, 'eval_int': True}
+[pretrain] step     0/12000 loss 5.479 (ema 5.479) lr 1.00e-04 0s
+[pretrain] step   100/12000 loss 2.455 (ema 3.715) lr 1.00e-02 7s
+[pretrain] step   200/12000 loss 1.477 (ema 1.918) lr 1.00e-02 14s
+[pretrain] step   300/12000 loss 0.876 (ema 1.150) lr 9.99e-03 21s
+[pretrain] step   400/12000 loss 0.636 (ema 0.822) lr 9.99e-03 28s
+[pretrain] step   500/12000 loss 0.542 (ema 0.634) lr 9.97e-03 35s
+[pretrain] step   600/12000 loss 0.502 (ema 0.542) lr 9.96e-03 42s
+[pretrain] step   700/12000 loss 0.492 (ema 0.500) lr 9.94e-03 49s
+[pretrain] step   800/12000 loss 0.433 (ema 0.456) lr 9.92e-03 56s
+[pretrain] step   900/12000 loss 0.271 (ema 0.419) lr 9.90e-03 62s
+[pretrain] step  1000/12000 loss 0.311 (ema 0.390) lr 9.87e-03 69s
+[pretrain] step  1100/12000 loss 0.335 (ema 0.376) lr 9.84e-03 76s
+[pretrain] step  1200/12000 loss 0.418 (ema 0.363) lr 9.81e-03 83s
+[pretrain] step  1300/12000 loss 0.295 (ema 0.353) lr 9.78e-03 89s
+[pretrain] step  1400/12000 loss 0.290 (ema 0.322) lr 9.74e-03 96s
+[pretrain] step  1500/12000 loss 0.346 (ema 0.324) lr 9.70e-03 103s
+[pretrain] step  1600/12000 loss 0.293 (ema 0.312) lr 9.65e-03 110s
+[pretrain] step  1700/12000 loss 0.332 (ema 0.298) lr 9.60e-03 117s
+[pretrain] step  1800/12000 loss 0.377 (ema 0.305) lr 9.55e-03 124s
+[pretrain] step  1900/12000 loss 0.308 (ema 0.278) lr 9.50e-03 131s
+[pretrain] step  2000/12000 loss 0.311 (ema 0.272) lr 9.45e-03 137s
+[pretrain] step  2100/12000 loss 0.203 (ema 0.268) lr 9.39e-03 144s
+[pretrain] step  2200/12000 loss 0.215 (ema 0.252) lr 9.33e-03 151s
+[pretrain] step  2300/12000 loss 0.264 (ema 0.247) lr 9.26e-03 158s
+[pretrain] step  2400/12000 loss 0.208 (ema 0.246) lr 9.20e-03 165s
+[pretrain] step  2500/12000 loss 0.212 (ema 0.242) lr 9.13e-03 172s
+[pretrain] step  2600/12000 loss 0.260 (ema 0.241) lr 9.05e-03 179s
+[pretrain] step  2700/12000 loss 0.213 (ema 0.235) lr 8.98e-03 185s
+[pretrain] step  2800/12000 loss 0.181 (ema 0.227) lr 8.90e-03 192s
+[pretrain] step  2900/12000 loss 0.183 (ema 0.232) lr 8.83e-03 199s
+[pretrain] step  3000/12000 loss 0.288 (ema 0.226) lr 8.74e-03 206s
+[pretrain] step  3100/12000 loss 0.200 (ema 0.223) lr 8.66e-03 213s
+[pretrain] step  3200/12000 loss 0.226 (ema 0.212) lr 8.58e-03 220s
+[pretrain] step  3300/12000 loss 0.121 (ema 0.215) lr 8.49e-03 227s
+[pretrain] step  3400/12000 loss 0.223 (ema 0.218) lr 8.40e-03 234s
+[pretrain] step  3500/12000 loss 0.229 (ema 0.224) lr 8.31e-03 241s
+[pretrain] step  3600/12000 loss 0.242 (ema 0.209) lr 8.21e-03 248s
+[pretrain] step  3700/12000 loss 0.209 (ema 0.208) lr 8.12e-03 254s
+[pretrain] step  3800/12000 loss 0.262 (ema 0.207) lr 8.02e-03 261s
+[pretrain] step  3900/12000 loss 0.200 (ema 0.203) lr 7.92e-03 268s
+[pretrain] step  4000/12000 loss 0.186 (ema 0.198) lr 7.82e-03 276s
+[pretrain] step  4100/12000 loss 0.149 (ema 0.200) lr 7.72e-03 282s
+[pretrain] step  4200/12000 loss 0.212 (ema 0.193) lr 7.61e-03 289s
+[pretrain] step  4300/12000 loss 0.206 (ema 0.192) lr 7.51e-03 296s
+[pretrain] step  4400/12000 loss 0.227 (ema 0.198) lr 7.40e-03 303s
+[pretrain] step  4500/12000 loss 0.193 (ema 0.194) lr 7.29e-03 310s
+[pretrain] step  4600/12000 loss 0.179 (ema 0.189) lr 7.18e-03 317s
+[pretrain] step  4700/12000 loss 0.120 (ema 0.192) lr 7.07e-03 323s
+[pretrain] step  4800/12000 loss 0.294 (ema 0.194) lr 6.96e-03 330s
+[pretrain] step  4900/12000 loss 0.141 (ema 0.187) lr 6.85e-03 337s
+[pretrain] step  5000/12000 loss 0.155 (ema 0.188) lr 6.73e-03 344s
+[pretrain] step  5100/12000 loss 0.135 (ema 0.184) lr 6.62e-03 351s
+[pretrain] step  5200/12000 loss 0.149 (ema 0.188) lr 6.50e-03 358s
+[pretrain] step  5300/12000 loss 0.182 (ema 0.183) lr 6.39e-03 365s
+[pretrain] step  5400/12000 loss 0.162 (ema 0.177) lr 6.27e-03 371s
+[pretrain] step  5500/12000 loss 0.178 (ema 0.175) lr 6.15e-03 378s
+[pretrain] step  5600/12000 loss 0.191 (ema 0.175) lr 6.03e-03 385s
+[pretrain] step  5700/12000 loss 0.203 (ema 0.174) lr 5.92e-03 392s
+[pretrain] step  5800/12000 loss 0.131 (ema 0.176) lr 5.80e-03 398s
+[pretrain] step  5900/12000 loss 0.162 (ema 0.172) lr 5.68e-03 405s
+[pretrain] step  6000/12000 loss 0.238 (ema 0.176) lr 5.56e-03 412s
+[pretrain] step  6100/12000 loss 0.179 (ema 0.177) lr 5.44e-03 419s
+[pretrain] step  6200/12000 loss 0.209 (ema 0.168) lr 5.32e-03 426s
+[pretrain] step  6300/12000 loss 0.165 (ema 0.169) lr 5.20e-03 432s
+[pretrain] step  6400/12000 loss 0.193 (ema 0.168) lr 5.08e-03 439s
+[pretrain] step  6500/12000 loss 0.125 (ema 0.168) lr 4.97e-03 446s
+[pretrain] step  6600/12000 loss 0.183 (ema 0.166) lr 4.85e-03 453s
+[pretrain] step  6700/12000 loss 0.184 (ema 0.169) lr 4.73e-03 459s
+[pretrain] step  6800/12000 loss 0.150 (ema 0.164) lr 4.61e-03 466s
+[pretrain] step  6900/12000 loss 0.155 (ema 0.161) lr 4.50e-03 473s
+[pretrain] step  7000/12000 loss 0.093 (ema 0.160) lr 4.38e-03 480s
+[pretrain] step  7100/12000 loss 0.173 (ema 0.163) lr 4.27e-03 487s
+[pretrain] step  7200/12000 loss 0.169 (ema 0.158) lr 4.15e-03 494s
+[pretrain] step  7300/12000 loss 0.141 (ema 0.162) lr 4.04e-03 501s
+[pretrain] step  7400/12000 loss 0.165 (ema 0.164) lr 3.93e-03 507s
+[pretrain] step  7500/12000 loss 0.168 (ema 0.155) lr 3.82e-03 514s
+[pretrain] step  7600/12000 loss 0.148 (ema 0.157) lr 3.71e-03 521s
+[pretrain] step  7700/12000 loss 0.141 (ema 0.157) lr 3.60e-03 527s
+[pretrain] step  7800/12000 loss 0.176 (ema 0.155) lr 3.49e-03 534s
+[pretrain] step  7900/12000 loss 0.209 (ema 0.158) lr 3.39e-03 541s
+[pretrain] step  8000/12000 loss 0.142 (ema 0.159) lr 3.28e-03 548s
+[pretrain] step  8100/12000 loss 0.166 (ema 0.151) lr 3.18e-03 555s
+[pretrain] step  8200/12000 loss 0.227 (ema 0.158) lr 3.08e-03 561s
+[pretrain] step  8300/12000 loss 0.172 (ema 0.153) lr 2.98e-03 568s
+[pretrain] step  8400/12000 loss 0.122 (ema 0.151) lr 2.88e-03 575s
+[pretrain] step  8500/12000 loss 0.151 (ema 0.147) lr 2.79e-03 582s
+[pretrain] step  8600/12000 loss 0.100 (ema 0.148) lr 2.69e-03 589s
+[pretrain] step  8700/12000 loss 0.112 (ema 0.144) lr 2.60e-03 595s
+[pretrain] step  8800/12000 loss 0.122 (ema 0.142) lr 2.51e-03 602s
+[pretrain] step  8900/12000 loss 0.149 (ema 0.148) lr 2.42e-03 609s
+[pretrain] step  9000/12000 loss 0.139 (ema 0.145) lr 2.34e-03 616s
+[pretrain] step  9100/12000 loss 0.116 (ema 0.146) lr 2.26e-03 623s
+[pretrain] step  9200/12000 loss 0.208 (ema 0.145) lr 2.17e-03 629s
+[pretrain] step  9300/12000 loss 0.162 (ema 0.143) lr 2.10e-03 636s
+[pretrain] step  9400/12000 loss 0.100 (ema 0.148) lr 2.02e-03 643s
+[pretrain] step  9500/12000 loss 0.166 (ema 0.145) lr 1.95e-03 650s
+[pretrain] step  9600/12000 loss 0.135 (ema 0.144) lr 1.87e-03 657s
+[pretrain] step  9700/12000 loss 0.096 (ema 0.144) lr 1.80e-03 663s
+[pretrain] step  9800/12000 loss 0.136 (ema 0.147) lr 1.74e-03 670s
+[pretrain] step  9900/12000 loss 0.130 (ema 0.146) lr 1.67e-03 677s
+[pretrain] step 10000/12000 loss 0.200 (ema 0.148) lr 1.61e-03 684s
+[pretrain] step 10100/12000 loss 0.154 (ema 0.148) lr 1.55e-03 691s
+[pretrain] step 10200/12000 loss 0.134 (ema 0.144) lr 1.50e-03 697s
+[pretrain] step 10300/12000 loss 0.136 (ema 0.145) lr 1.45e-03 704s
+[pretrain] step 10400/12000 loss 0.144 (ema 0.144) lr 1.40e-03 710s
+[pretrain] step 10500/12000 loss 0.138 (ema 0.138) lr 1.35e-03 717s
+[pretrain] step 10600/12000 loss 0.123 (ema 0.141) lr 1.30e-03 724s
+[pretrain] step 10700/12000 loss 0.147 (ema 0.146) lr 1.26e-03 731s
+[pretrain] step 10800/12000 loss 0.132 (ema 0.139) lr 1.22e-03 738s
+[pretrain] step 10900/12000 loss 0.122 (ema 0.141) lr 1.19e-03 744s
+[pretrain] step 11000/12000 loss 0.137 (ema 0.147) lr 1.16e-03 751s
+[pretrain] step 11100/12000 loss 0.129 (ema 0.143) lr 1.13e-03 758s
+[pretrain] step 11200/12000 loss 0.130 (ema 0.136) lr 1.10e-03 764s
+[pretrain] step 11300/12000 loss 0.159 (ema 0.140) lr 1.08e-03 771s
+[pretrain] step 11400/12000 loss 0.135 (ema 0.137) lr 1.06e-03 778s
+[pretrain] step 11500/12000 loss 0.126 (ema 0.138) lr 1.04e-03 784s
+[pretrain] step 11600/12000 loss 0.182 (ema 0.138) lr 1.03e-03 791s
+[pretrain] step 11700/12000 loss 0.120 (ema 0.140) lr 1.01e-03 798s
+[pretrain] step 11800/12000 loss 0.112 (ema 0.135) lr 1.01e-03 804s
+[pretrain] step 11900/12000 loss 0.115 (ema 0.135) lr 1.00e-03 812s
+[pretrain] step 11999/12000 loss 0.121 (ema 0.136) lr 1.00e-03 819s
+[sft] step     0/8000 loss 0.119 (ema 0.119) lr 6.00e-05 0s
+[sft] step   100/8000 loss 0.092 (ema 0.105) lr 6.00e-03 7s
+[sft] step   200/8000 loss 0.114 (ema 0.112) lr 6.00e-03 13s
+[sft] step   300/8000 loss 0.089 (ema 0.109) lr 5.99e-03 20s
+[sft] step   400/8000 loss 0.107 (ema 0.110) lr 5.98e-03 27s
+[sft] step   500/8000 loss 0.118 (ema 0.107) lr 5.97e-03 33s
+[sft] step   600/8000 loss 0.111 (ema 0.105) lr 5.95e-03 40s
+[sft] step   700/8000 loss 0.112 (ema 0.101) lr 5.92e-03 47s
+[sft] step   800/8000 loss 0.088 (ema 0.102) lr 5.90e-03 54s
+[sft] step   900/8000 loss 0.099 (ema 0.101) lr 5.86e-03 60s
+[sft] step  1000/8000 loss 0.101 (ema 0.099) lr 5.83e-03 67s
+[sft] step  1100/8000 loss 0.104 (ema 0.102) lr 5.79e-03 73s
+[sft] step  1200/8000 loss 0.094 (ema 0.100) lr 5.75e-03 80s
+[sft] step  1300/8000 loss 0.085 (ema 0.098) lr 5.70e-03 86s
+[sft] step  1400/8000 loss 0.078 (ema 0.096) lr 5.65e-03 93s
+[sft] step  1500/8000 loss 0.099 (ema 0.098) lr 5.59e-03 100s
+[sft] step  1600/8000 loss 0.086 (ema 0.095) lr 5.53e-03 106s
+[sft] step  1700/8000 loss 0.082 (ema 0.096) lr 5.47e-03 113s
+[sft] step  1800/8000 loss 0.078 (ema 0.093) lr 5.41e-03 119s
+[sft] step  1900/8000 loss 0.113 (ema 0.094) lr 5.34e-03 126s
+[sft] step  2000/8000 loss 0.089 (ema 0.093) lr 5.27e-03 133s
+[sft] step  2100/8000 loss 0.112 (ema 0.094) lr 5.19e-03 139s
+[sft] step  2200/8000 loss 0.100 (ema 0.091) lr 5.11e-03 146s
+[sft] step  2300/8000 loss 0.086 (ema 0.090) lr 5.03e-03 153s
+[sft] step  2400/8000 loss 0.110 (ema 0.091) lr 4.95e-03 159s
+[sft] step  2500/8000 loss 0.099 (ema 0.091) lr 4.86e-03 166s
+[sft] step  2600/8000 loss 0.080 (ema 0.089) lr 4.77e-03 172s
+[sft] step  2700/8000 loss 0.094 (ema 0.089) lr 4.68e-03 179s
+[sft] step  2800/8000 loss 0.082 (ema 0.088) lr 4.59e-03 185s
+[sft] step  2900/8000 loss 0.081 (ema 0.085) lr 4.49e-03 192s
+[sft] step  3000/8000 loss 0.093 (ema 0.087) lr 4.39e-03 198s
+[sft] step  3100/8000 loss 0.100 (ema 0.086) lr 4.30e-03 205s
+[sft] step  3200/8000 loss 0.081 (ema 0.087) lr 4.20e-03 211s
+[sft] step  3300/8000 loss 0.085 (ema 0.085) lr 4.09e-03 218s
+[sft] step  3400/8000 loss 0.087 (ema 0.085) lr 3.99e-03 224s
+[sft] step  3500/8000 loss 0.082 (ema 0.085) lr 3.89e-03 231s
+[sft] step  3600/8000 loss 0.097 (ema 0.083) lr 3.78e-03 238s
+[sft] step  3700/8000 loss 0.076 (ema 0.083) lr 3.67e-03 244s
+[sft] step  3800/8000 loss 0.087 (ema 0.083) lr 3.57e-03 251s
+[sft] step  3900/8000 loss 0.085 (ema 0.083) lr 3.46e-03 257s
+[sft] step  4000/8000 loss 0.089 (ema 0.081) lr 3.35e-03 264s
+[sft] step  4100/8000 loss 0.079 (ema 0.082) lr 3.25e-03 270s
+[sft] step  4200/8000 loss 0.066 (ema 0.080) lr 3.14e-03 277s
+[sft] step  4300/8000 loss 0.066 (ema 0.081) lr 3.03e-03 284s
+[sft] step  4400/8000 loss 0.085 (ema 0.079) lr 2.93e-03 290s
+[sft] step  4500/8000 loss 0.097 (ema 0.080) lr 2.82e-03 297s
+[sft] step  4600/8000 loss 0.083 (ema 0.078) lr 2.71e-03 303s
+[sft] step  4700/8000 loss 0.079 (ema 0.077) lr 2.61e-03 310s
+[sft] step  4800/8000 loss 0.079 (ema 0.077) lr 2.51e-03 317s
+[sft] step  4900/8000 loss 0.066 (ema 0.078) lr 2.40e-03 323s
+[sft] step  5000/8000 loss 0.079 (ema 0.077) lr 2.30e-03 330s
+[sft] step  5100/8000 loss 0.081 (ema 0.078) lr 2.21e-03 337s
+[sft] step  5200/8000 loss 0.075 (ema 0.077) lr 2.11e-03 343s
+[sft] step  5300/8000 loss 0.090 (ema 0.076) lr 2.01e-03 350s
+[sft] step  5400/8000 loss 0.080 (ema 0.076) lr 1.92e-03 356s
+[sft] step  5500/8000 loss 0.079 (ema 0.075) lr 1.83e-03 363s
+[sft] step  5600/8000 loss 0.078 (ema 0.075) lr 1.74e-03 370s
+[sft] step  5700/8000 loss 0.073 (ema 0.075) lr 1.65e-03 376s
+[sft] step  5800/8000 loss 0.071 (ema 0.076) lr 1.57e-03 383s
+[sft] step  5900/8000 loss 0.073 (ema 0.075) lr 1.49e-03 390s
+[sft] step  6000/8000 loss 0.076 (ema 0.074) lr 1.41e-03 396s
+[sft] step  6100/8000 loss 0.072 (ema 0.074) lr 1.33e-03 403s
+[sft] step  6200/8000 loss 0.078 (ema 0.073) lr 1.26e-03 409s
+[sft] step  6300/8000 loss 0.076 (ema 0.074) lr 1.19e-03 416s
+[sft] step  6400/8000 loss 0.063 (ema 0.073) lr 1.13e-03 423s
+[sft] step  6500/8000 loss 0.071 (ema 0.073) lr 1.07e-03 429s
+[sft] step  6600/8000 loss 0.076 (ema 0.072) lr 1.01e-03 436s
+[sft] step  6700/8000 loss 0.074 (ema 0.073) lr 9.53e-04 442s
+[sft] step  6800/8000 loss 0.071 (ema 0.072) lr 9.02e-04 449s
+[sft] step  6900/8000 loss 0.069 (ema 0.072) lr 8.54e-04 456s
+[sft] step  7000/8000 loss 0.068 (ema 0.072) lr 8.11e-04 462s
+[sft] step  7100/8000 loss 0.077 (ema 0.071) lr 7.71e-04 469s
+[sft] step  7200/8000 loss 0.069 (ema 0.071) lr 7.35e-04 475s
+[sft] step  7300/8000 loss 0.066 (ema 0.071) lr 7.04e-04 482s
+[sft] step  7400/8000 loss 0.080 (ema 0.073) lr 6.76e-04 488s
+[sft] step  7500/8000 loss 0.081 (ema 0.072) lr 6.53e-04 495s
+[sft] step  7600/8000 loss 0.075 (ema 0.071) lr 6.34e-04 502s
+[sft] step  7700/8000 loss 0.068 (ema 0.071) lr 6.19e-04 508s
+[sft] step  7800/8000 loss 0.077 (ema 0.071) lr 6.09e-04 515s
+[sft] step  7900/8000 loss 0.069 (ema 0.072) lr 6.02e-04 521s
+[sft] step  7999/8000 loss 0.066 (ema 0.071) lr 6.00e-04 528s
+[float] train questions: exact match 100%, char error rate 0.00 (80 questions)
+    facts.jsonl          exact 100%  cer 0.00  (47)
+    offtopic.jsonl       exact 100%  cer 0.00  (33)
+  OK  q: what is an api
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: who made kirby
+      got: masahiro sakurai at hal laboratory
+      exp: masahiro sakurai at hal laboratory
+  OK  q: who won the world cup
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: what is a mortgage
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: what is a game boy
+      got: an 8-bit handheld game console made by nintendo in 1989
+      exp: an 8-bit handheld game console made by nintendo in 1989
+  OK  q: what did gunpei yokoi invent
+      got: game & watch, the d-pad, metroid and the virtual boy
+      exp: game & watch, the d-pad, metroid and the virtual boy
+  OK  q: how big can a game boy cartridge be
+      got: up to 8 megabytes with the mbc5 mapper
+      exp: up to 8 megabytes with the mbc5 mapper
+  OK  q: why do birds sing
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+[float] held-out questions: exact match 51%, char error rate 0.51 (144 questions)
+    facts.jsonl          exact  38%  cer 0.64  (103)
+    offtopic.jsonl       exact  83%  cer 0.18  (41)
+  BAD q: release date of the game boy
+      got: july 31, 1989
+      exp: april 21, 1989 in japan
+  BAD q: when was the game boy released in north america
+      got: yes, for wireless data exchange between two units
+      exp: july 31, 1989
+  BAD q: what is lateral thinking with withered technology
+      got: sorry, i only know about the game boy
+      exp: lateral thinking with withered technology: cheap, mature parts used in new ways
+  BAD q: which company made the game boy
+      got: 4 shades of greenish gray
+      exp: nintendo
+  BAD q: game boy cpu
+      got: a 32-bit arm7tdmi at 16.78 mhz
+      exp: a sharp lr35902, an 8-bit chip similar to the z80
+  BAD q: how fast is the game boy cpu
+      got: a reflective stn lcd with no backlight
+      exp: 4.19 mhz
+  BAD q: how much ram does the game boy have
+      got: 32 kb of work ram and 16 kb of video ram
+      exp: 8 kb of work ram and 8 kb of video ram
+  BAD q: how many pixels does the game boy screen have
+      got: 2.6 inches
+      exp: 160 by 144 pixels
+[int] train questions: exact match 100%, char error rate 0.00 (80 questions)
+    facts.jsonl          exact 100%  cer 0.00  (47)
+    offtopic.jsonl       exact 100%  cer 0.00  (33)
+  OK  q: what is an api
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: who made kirby
+      got: masahiro sakurai at hal laboratory
+      exp: masahiro sakurai at hal laboratory
+  OK  q: who won the world cup
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: what is a mortgage
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+  OK  q: what is a game boy
+      got: an 8-bit handheld game console made by nintendo in 1989
+      exp: an 8-bit handheld game console made by nintendo in 1989
+  OK  q: what did gunpei yokoi invent
+      got: game & watch, the d-pad, metroid and the virtual boy
+      exp: game & watch, the d-pad, metroid and the virtual boy
+  OK  q: how big can a game boy cartridge be
+      got: up to 8 megabytes with the mbc5 mapper
+      exp: up to 8 megabytes with the mbc5 mapper
+  OK  q: why do birds sing
+      got: sorry, i only know about the game boy
+      exp: sorry, i only know about the game boy
+[int] held-out questions: exact match 51%, char error rate 0.47 (144 questions)
+    facts.jsonl          exact  40%  cer 0.58  (103)
+    offtopic.jsonl       exact  80%  cer 0.17  (41)
+  BAD q: release date of the game boy
+      got: july 31, 1989
+      exp: april 21, 1989 in japan
+  BAD q: when was the game boy released in north america
+      got: a, 1998, with a, b, a clear
+      exp: july 31, 1989
+  BAD q: what is lateral thinking with withered technology
+      got: sorry, i only know about the game boy
+      exp: lateral thinking with withered technology: cheap, mature parts used in new ways
+  BAD q: which company made the game boy
+      got: 4.19 mhz
+      exp: nintendo
+  BAD q: game boy cpu
+      got: a 32-bit arm7tdmi at 16.78 mhz
+      exp: a sharp lr35902, an 8-bit chip similar to the z80
+  BAD q: how fast is the game boy cpu
+      got: a reflectic that played tetris
+      exp: 4.19 mhz
+  BAD q: how much ram does the game boy have
+      got: 32 kb of work ram and 16 kb of video ram
+      exp: 8 kb of work ram and 8 kb of video ram
+  BAD q: how many pixels does the game boy screen have
+      got: 2.6 inches
+      exp: 160 by 144 pixels
