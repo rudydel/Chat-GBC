@@ -1,9 +1,10 @@
 /* Chat-GBC: talk to a nano language model on a Game Boy.
  *
- * Controls
+ * Controls (intro menu: D-pad up/down, A or START to pick)
  *   D-pad  move the keyboard cursor
  *   A      press the highlighted key
- *   B      backspace (or stop a reply while the model is talking)
+ *   B      backspace (or stop a reply while the model is talking);
+ *          with an empty prompt: back to the menu
  *   START  send the prompt
  *   SELECT toggle greedy / sampled decoding
  */
@@ -13,6 +14,7 @@
 #include <stdint.h>
 #include "ui.h"
 #include "llm.h"
+#include "intro.h"
 #include "../gen/model_weights.h"   /* tok_str[], tok_len[]: the characters of every token */
 
 #define MIN_REPLY 24            /* start a fresh context if fewer tokens than this would remain */
@@ -75,6 +77,7 @@ static void chat(void)
     uint8_t stop = 0;
 
     if (input_len == 0) return;
+    ui_log_record(1);                      /* keep the exchange for the history screen */
     ui_log_puts("> ");
     ui_log_puts(input);
     ui_log_newline();
@@ -120,6 +123,7 @@ static void chat(void)
     }
     ui_log_newline();
     ui_log_flush();
+    ui_log_record(0);
     ui_status("ready");
     input_len = 0;
     input[0] = 0;
@@ -171,13 +175,11 @@ void main(void)
     while (1) wait_vbl_done();
 }
 #else
-void main(void)
+/* a fresh conversation: blank log, empty prompt, new context */
+static void new_chat(void)
 {
-    uint8_t j;
-    ui_init();
-    /* Game Boy Color: double speed halves the time per character; the LCD,
-     * frame rate and joypad are unaffected (only used for timing the RNG seed) */
-    if (_cpu == CGB_TYPE) cpu_fast();
+    ui_clear();
+    ui_log_clear();
     ui_log_puts("chat-gbc: a nano llm");
     ui_log_newline();
     ui_log_puts("model " M_NAME);
@@ -185,29 +187,49 @@ void main(void)
     ui_log_puts("ask me about the game boy!");
     ui_log_newline();
     ui_log_flush();
-    ui_status("loading...");
-    llm_init();
+    llm_reset();
+    input_len = 0;
+    input[0] = 0;
+    cur_row = cur_col = 0;
     ui_status("ready");
     show_mode();
     redraw_input();
     ui_kbd_draw(cur_row, cur_col);
+}
+
+void main(void)
+{
+    uint8_t j;
+    ui_init();
+    /* Game Boy Color: double speed halves the time per character; the LCD,
+     * frame rate and joypad are unaffected (only used for timing the RNG seed) */
+    if (_cpu == CGB_TYPE) cpu_fast();
+    llm_init();
 
     while (1) {
-        wait_vbl_done();
-        frame_count++;
-        j = joypad();
-        if (!j) continue;
-        if (j & J_UP) { if (cur_row) cur_row--; }
-        else if (j & J_DOWN) { if (cur_row < KBD_ROWS - 1) cur_row++; }
-        else if (j & J_LEFT) { cur_col = cur_col ? cur_col - 1 : ui_kbd_cols(cur_row) - 1; }
-        else if (j & J_RIGHT) { cur_col = (cur_col + 1 < ui_kbd_cols(cur_row)) ? cur_col + 1 : 0; }
-        else if (j & J_A) { press_key(); }
-        else if (j & J_B) { if (input_len) input[--input_len] = 0; redraw_input(); }
-        else if (j & J_START) { chat(); }
-        else if (j & J_SELECT) { sampling = !sampling; show_mode(); }
-        if (cur_col >= ui_kbd_cols(cur_row)) cur_col = ui_kbd_cols(cur_row) - 1;
-        ui_kbd_draw(cur_row, cur_col);
-        wait_key_release();
+        intro_run();                        /* title screen + menu, returns on "new chat" */
+        new_chat();
+        while (1) {
+            wait_vbl_done();
+            frame_count++;
+            j = joypad();
+            if (!j) continue;
+            if (j & J_UP) { if (cur_row) cur_row--; }
+            else if (j & J_DOWN) { if (cur_row < KBD_ROWS - 1) cur_row++; }
+            else if (j & J_LEFT) { cur_col = cur_col ? cur_col - 1 : ui_kbd_cols(cur_row) - 1; }
+            else if (j & J_RIGHT) { cur_col = (cur_col + 1 < ui_kbd_cols(cur_row)) ? cur_col + 1 : 0; }
+            else if (j & J_A) { press_key(); }
+            else if (j & J_B) {
+                if (!input_len) { wait_key_release(); break; }     /* back to the menu */
+                input[--input_len] = 0;
+                redraw_input();
+            }
+            else if (j & J_START) { chat(); }
+            else if (j & J_SELECT) { sampling = !sampling; show_mode(); }
+            if (cur_col >= ui_kbd_cols(cur_row)) cur_col = ui_kbd_cols(cur_row) - 1;
+            ui_kbd_draw(cur_row, cur_col);
+            wait_key_release();
+        }
     }
 }
 #endif

@@ -8,6 +8,14 @@ static char logbuf[LOG_LINES][SCREEN_W];
 static uint8_t log_line, log_col;
 static uint8_t tilebuf[SCREEN_W];
 
+static char histbuf[HIST_LINES][SCREEN_W];
+static uint8_t hist_head, hist_count, log_record;
+
+/* Game Boy Color: the four greens of the original DMG screen, like the logo */
+static const palette_color_t pal_green[4] = {
+    RGB8(155, 188, 15), RGB8(139, 172, 15), RGB8(48, 98, 48), RGB8(15, 56, 15)
+};
+
 /* keyboard layout: rows of keys, each key is a label drawn at a column */
 static const char kbd_row0[] = "abcdefghij";
 static const char kbd_row1[] = "klmnopqrst";
@@ -19,52 +27,87 @@ static const char *const kbd_last_labels[5] = { "?", "!", "spc", "del", "send" }
 static const uint8_t kbd_last_cols[5] = { 0, 2, 4, 9, 14 };
 static const uint8_t kbd_last_keys[5] = { '?', '!', KEY_SPACE, KEY_DEL, KEY_SEND };
 
-static void draw_text(uint8_t x, uint8_t y, const char *s, uint8_t inverted)
+void ui_text_n(uint8_t x, uint8_t y, const char *s, uint8_t n)
 {
-    uint8_t n = 0;
-    uint8_t off = inverted ? FONT_INV_OFFSET : 0;
-    while (*s && n < SCREEN_W) {
-        tilebuf[n++] = CHAR_TILE(*s) + off;
-        s++;
-    }
+    uint8_t i;
+    if (n > SCREEN_W) n = SCREEN_W;
+    for (i = 0; i < n; i++) tilebuf[i] = CHAR_TILE(s[i]);
     if (n) set_bkg_tiles(x, y, n, 1, tilebuf);
 }
 
-static void clear_row(uint8_t y)
+void ui_text(uint8_t x, uint8_t y, const char *s)
+{
+    uint8_t n = 0;
+    while (s[n] && n < SCREEN_W) n++;
+    ui_text_n(x, y, s, n);
+}
+
+void ui_blank(uint8_t x, uint8_t y, uint8_t w)
 {
     memset(tilebuf, 0, SCREEN_W);
-    set_bkg_tiles(0, y, SCREEN_W, 1, tilebuf);
+    set_bkg_tiles(x, y, w, 1, tilebuf);
+}
+
+void ui_clear(void)
+{
+    uint8_t y;
+    for (y = 0; y < 18; y++) ui_blank(0, y, SCREEN_W);
 }
 
 void ui_init(void)
 {
-    uint8_t y;
     DISPLAY_OFF;                        /* VRAM and palettes are freely writable while the LCD is off */
     set_bkg_data(0, FONT_NTILES, font_tiles);
-    for (y = 0; y < 18; y++) clear_row(y);
+    ui_clear();
     /* The cartridge header declares CGB support, so a Game Boy Color (and
      * every emulator running in GBC mode, e.g. OpenEmu, SameBoy, Gambatte)
      * starts the ROM in CGB mode. There BGP is ignored and the boot ROM leaves
      * all colour palettes white: without this the screen stays blank. Give
-     * BG palette 0 the DMG greys (white, light grey, dark grey, black). */
-    if (_cpu == CGB_TYPE) set_default_palette();
-    memset(logbuf, ' ', sizeof(logbuf));
-    log_line = 0;
-    log_col = 0;
+     * BG palette 0 the four greens of the original Game Boy screen. */
+    if (_cpu == CGB_TYPE) set_bkg_palette(0, 1, pal_green);
+    ui_log_clear();
     SHOW_BKG;
     DISPLAY_ON;
 }
 
 void ui_status(const char *s)
 {
-    clear_row(STATUS_ROW);
-    draw_text(0, STATUS_ROW, s, 0);
+    ui_blank(0, STATUS_ROW, SCREEN_W);
+    ui_text(0, STATUS_ROW, s);
 }
 
 void ui_help(const char *s)
 {
-    clear_row(HELP_ROW);
-    draw_text(0, HELP_ROW, s, 0);
+    ui_blank(0, HELP_ROW, SCREEN_W);
+    ui_text(0, HELP_ROW, s);
+}
+
+/* ---- chat history ---------------------------------------------------------- */
+static void hist_push(const char *line)
+{
+    uint8_t i;
+    for (i = 0; i < SCREEN_W && line[i] == ' '; i++) ;
+    if (i == SCREEN_W) return;                          /* blank line */
+    memcpy(histbuf[hist_head], line, SCREEN_W);
+    hist_head = (hist_head + 1 < HIST_LINES) ? hist_head + 1 : 0;
+    if (hist_count < HIST_LINES) hist_count++;
+}
+
+void ui_log_record(uint8_t on)
+{
+    log_record = on;
+}
+
+uint8_t ui_hist_count(void)
+{
+    return hist_count;
+}
+
+const char *ui_hist_line(uint8_t i)
+{
+    uint16_t k = (uint16_t)hist_head + HIST_LINES - hist_count + i;
+    if (k >= HIST_LINES) k -= HIST_LINES;
+    return histbuf[k];
 }
 
 /* ---- conversation log ------------------------------------------------------ */
@@ -74,8 +117,16 @@ static void log_scroll(void)
     memset(logbuf[LOG_LINES - 1], ' ', SCREEN_W);
 }
 
+void ui_log_clear(void)
+{
+    memset(logbuf, ' ', sizeof(logbuf));
+    log_line = 0;
+    log_col = 0;
+}
+
 void ui_log_newline(void)
 {
+    if (log_record) hist_push(logbuf[log_line]);       /* the line is complete: keep it */
     if (log_line == LOG_LINES - 1) log_scroll();
     else log_line++;
     log_col = 0;

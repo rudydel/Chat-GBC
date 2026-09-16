@@ -65,6 +65,15 @@ class Console:
         self.pb.button_release(btn)
         self.tick(gap)
 
+    def wait_text(self, text, max_frames=600):
+        """wait until some row of the screen contains text"""
+        start = self.frames
+        while self.frames - start < max_frames:
+            self.tick(10)
+            if any(text in row for row in self.screen()):
+                return self.frames - start
+        raise TimeoutError(f"text {text!r} not on screen:\n" + "\n".join(self.screen()))
+
     def wait_status(self, text, max_frames=20 * 60 * 60):
         start = self.frames
         while self.frames - start < max_frames:
@@ -120,6 +129,8 @@ def main():
     font_map = json.load(open(args.font_map))
     con = Console(args.rom, font_map)
     con.tick(120)
+    con.wait_text("new chat")          # intro menu, cursor on "new chat"
+    con.press("a")
     con.wait_status("ready", 600)
 
     sim = None
