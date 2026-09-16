@@ -78,11 +78,17 @@ Game Boy produces exactly the same characters as the Python simulator.
 
 ```bash
 make train                       # pre-train + fine-tune configs/tiny.json on data/gameboy
-make finetune CHAT=my_facts.jsonl   # continue from models/tiny/ckpt.pt on new facts
+make finetune CHAT="data/gameboy my_facts.jsonl"   # continue from models/tiny/ckpt.pt on new facts
+make eval                        # exact match / char error rate on training and held-out questions
 python3 -m llm.chat models/tiny/ckpt.pt --int      # talk to it on the host
 ```
 
-See [docs/FINETUNING.md](docs/FINETUNING.md) for the full recipe, including
+Training augments the questions on the fly (key words only, typos, framing
+words) and holds 20% of the hand written phrasings out to report how the
+model does on questions it has never seen; `data/gameboy/offtopic.jsonl`
+teaches it to answer "sorry, i only know about the game boy" instead of
+inventing something. See [docs/FINETUNING.md](docs/FINETUNING.md) for the
+full recipe, including
 how to pull Game Boy articles from the web into the training corpus, and
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how a transformer fits into
 8 KiB of RAM and runs without a multiplier.
@@ -91,10 +97,10 @@ how to pull Game Boy articles from the web into the training corpus, and
 
 ```
 configs/         model sizes (nano / tiny / micro)
-data/gameboy/    dataset: facts.jsonl, corpus/*.txt, scripts/fetch_web.py
+data/gameboy/    dataset: facts.jsonl, offtopic.jsonl, corpus/*.txt, scripts/fetch_web.py
 docs/            ARCHITECTURE.md, BUILD.md, FINETUNING.md
 gb/              ROM sources: src/ (C + asm), gen/ (generated from the model), build/chatgbc.gb
-llm/             tokenizer, quant spec, model, data, train, export, simulate, chat
+llm/             tokenizer, quant spec, model, data, augment, train, evaluate, export, simulate, chat
 models/          tiny (shipped) and micro checkpoints, configs, integer models, training logs
 tools/           gbdk_setup.sh, fontgen.py, emu_test.py, selftest.py, check_map.py
 ```

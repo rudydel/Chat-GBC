@@ -11,7 +11,13 @@ Continue fine-tuning an existing checkpoint on new facts:
     python -m llm.train --init models/tiny/ckpt.pt --out models/tiny \
         --chat data/my_facts.jsonl --pretrain-steps 0 --sft-steps 1500
 
-Every run writes <out>/ckpt.pt, <out>/config.json and <out>/train_log.txt.
+By default 20% of the question variants of every fact (--heldout 0.2) never
+enter training; the final report shows exact match and character error rate
+on the training questions (memorisation) and on those held-out phrasings
+(generalisation). Questions are augmented on the fly (--augment, augment.py).
+
+Every run writes <out>/ckpt.pt, <out>/config.json, <out>/heldout.jsonl and
+<out>/train_log.txt.
 Export the result for the Game Boy with `python -m llm.export <out>/ckpt.pt`.
 """
 import argparse
@@ -23,8 +29,8 @@ import time
 
 import torch
 
-from . import tokenizer as tok
-from .data import load_text_files, load_chat_files, PackedStream, describe
+from .data import load_text_files, load_chat_groups, flatten_groups, split_heldout, pairs, PackedStream, describe
+from .evaluate import float_replier, int_replier, score, report
 from .model import NanoGPT, ModelConfig, save_checkpoint, load_checkpoint
 
 
@@ -64,9 +70,10 @@ def run_phase(model, stream, steps, batch, base_lr, log, name, wd=0.01, grad_cli
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
         opt.step()
-        ema = float(loss) if ema is None else 0.98 * ema + 0.02 * float(loss)
+        li = loss.item()
+        ema = li if ema is None else 0.98 * ema + 0.02 * li
         if step % log_every == 0 or step == steps - 1:
-            msg = f"[{name}] step {step:5d}/{steps} loss {float(loss):.3f} (ema {ema:.3f}) lr {lr:.2e} {time.time() - t0:.0f}s"
+            msg = f"[{name}] step {step:5d}/{steps} loss {li:.3f} (ema {ema:.3f}) lr {lr:.2e} {time.time() - t0:.0f}s"
             print(msg)
             log.write(msg + "\n")
             log.flush()
@@ -87,24 +94,6 @@ def run_phase(model, stream, steps, batch, base_lr, log, name, wd=0.01, grad_cli
     model.eval()
 
 
-@torch.no_grad()
-def recall_eval(model, chats, n=40, seed=0, max_new=80):
-    """Ask n random training questions with greedy decoding; report exact-match rate."""
-    if not chats:
-        return 0.0, []
-    rng = random.Random(seed)
-    sample = rng.sample(chats, min(n, len(chats)))
-    hits, examples = 0, []
-    for q, a in sample:
-        ids = torch.tensor([tok.format_turn(q)], dtype=torch.long)
-        out = model.generate(ids, max_new, temperature=0.0, stop_token=tok.EOS)[0, ids.size(1):].tolist()
-        text = "".join(tok.VOCAB[i] for i in out if i >= 4)
-        ok = text.strip() == a.strip()
-        hits += ok
-        examples.append((q, text, a, ok))
-    return hits / len(sample), examples
-
-
 def main():
     ap = argparse.ArgumentParser(description="train the Chat-GBC nano LLM")
     ap.add_argument("--config", help="model config JSON (ignored when --init is given)")
@@ -121,7 +110,13 @@ def main():
     ap.add_argument("--question-loss", type=float, default=0.1, help="loss weight on question tokens during SFT")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--threads", type=int, default=0)
-    ap.add_argument("--eval-n", type=int, default=40)
+    ap.add_argument("--augment", type=float, default=0.5,
+                    help="probability that a training question is rephrased on the fly (0 disables)")
+    ap.add_argument("--heldout", type=float, default=0.2,
+                    help="share of the question variants of each fact kept out of training for evaluation (0 disables)")
+    ap.add_argument("--heldout-chat", nargs="*", default=[], help="extra *.jsonl files used only for evaluation")
+    ap.add_argument("--eval-n", type=int, default=80, help="training questions to sample for the final report")
+    ap.add_argument("--eval-int", action="store_true", help="also evaluate the bit-exact integer simulator")
     args = ap.parse_args()
 
     if args.threads:
@@ -140,30 +135,39 @@ def main():
     print(f"model {cfg.name}: {model.num_params()} parameters, ctx {cfg.ctx}")
 
     docs = load_text_files(args.text)
-    chats = load_chat_files(args.chat)
-    print("data:", describe(docs, chats))
+    train_items, held_items = split_heldout(load_chat_groups(args.chat), args.heldout, args.seed)
+    held_items += flatten_groups(load_chat_groups(args.heldout_chat))
+    chats, chat_weights = pairs(train_items), [it["w"] for it in train_items]
+    print("data:", describe(docs, chats), f"+ {len(held_items)} held-out questions")
+    with open(os.path.join(args.out, "heldout.jsonl"), "w") as f:
+        for it in held_items:
+            f.write(json.dumps({"q": it["q"], "a": it["a"], "src": it["src"]}) + "\n")
 
     log = open(os.path.join(args.out, "train_log.txt"), "a")
     log.write(f"# {time.strftime('%Y-%m-%d %H:%M:%S')} {vars(args)}\n")
 
     if args.pretrain_steps > 0:
-        stream = PackedStream(docs, chats, cfg.ctx, chat_weight=args.chat_weight, question_loss=1.0, seed=args.seed)
+        stream = PackedStream(docs, chats, cfg.ctx, chat_weight=args.chat_weight, question_loss=1.0, seed=args.seed,
+                              augment=args.augment, chat_weights=chat_weights)
         run_phase(model, stream, args.pretrain_steps, args.batch, args.lr, log, "pretrain")
         save_checkpoint(model, os.path.join(args.out, "ckpt.pt"))
     if args.sft_steps > 0 and chats:
-        stream = PackedStream(docs, chats, cfg.ctx, answer_only=True, question_loss=args.question_loss, seed=args.seed + 1)
+        stream = PackedStream(docs, chats, cfg.ctx, answer_only=True, question_loss=args.question_loss, seed=args.seed + 1,
+                              augment=args.augment, chat_weights=chat_weights)
         run_phase(model, stream, args.sft_steps, args.batch, args.sft_lr, log, "sft")
     save_checkpoint(model, os.path.join(args.out, "ckpt.pt"))
     cfg.save(os.path.join(args.out, "config.json"))
 
-    rate, examples = recall_eval(model, chats, n=args.eval_n, seed=args.seed)
-    msg = f"fact recall (exact match, greedy, {len(examples)} training questions): {rate * 100:.0f}%"
-    print(msg)
-    log.write(msg + "\n")
-    for q, text, a, ok in examples[:8]:
-        line = f"  {'OK ' if ok else 'BAD'} q: {q}\n      got: {text}\n      exp: {a}"
-        print(line)
-        log.write(line + "\n")
+    def emit(lines):
+        for line in lines:
+            print(line)
+            log.write(line + "\n")
+
+    for tag, make_reply in [("float", float_replier)] + ([("int", int_replier)] if args.eval_int else []):
+        reply = make_reply(model)
+        emit(report(f"[{tag}] train questions", score(reply, train_items, args.eval_n, args.seed)))
+        if held_items:
+            emit(report(f"[{tag}] held-out questions", score(reply, held_items), only_bad=True))
     log.close()
     print(f"saved {args.out}/ckpt.pt")
 

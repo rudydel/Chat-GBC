@@ -7,20 +7,24 @@
 #   make test         run the ROM in an emulator and check it against the simulator
 #   make selftest     stage-by-stage bit-exactness check (slower, more precise)
 #   make chat         chat with the model on the host (integer simulation)
+#   make eval         exact match / char error rate on training and held-out questions (integer model)
 #
 # Variables: MODEL=tiny (models/<MODEL>), CONFIG=configs/$(MODEL).json,
-#            TEXT=data/gameboy/corpus, CHAT=data/gameboy/facts.jsonl
+#            TEXT=data/gameboy/corpus, CHAT=data/gameboy (every *.jsonl: facts + off-topic fallback),
+#            AUGMENT=0.5 (question augmentation probability), HELDOUT=0.2 (held-out share per fact)
 
 MODEL   ?= tiny
 CONFIG  ?= configs/$(MODEL).json
 TEXT    ?= data/gameboy/corpus
-CHAT    ?= data/gameboy/facts.jsonl
+CHAT    ?= data/gameboy
 PRETRAIN_STEPS ?= 6000
 SFT_STEPS      ?= 12000
+AUGMENT ?= 0.5
+HELDOUT ?= 0.2
 PYTHON  ?= python3
 PROMPT  ?= when was the game boy released
 
-.PHONY: all setup train finetune export rom test selftest chat clean
+.PHONY: all setup train finetune export rom test selftest chat eval clean
 
 all: rom
 
@@ -30,11 +34,11 @@ setup:
 
 train:
 	$(PYTHON) -m llm.train --config $(CONFIG) --out models/$(MODEL) --text $(TEXT) --chat $(CHAT) \
-		--pretrain-steps $(PRETRAIN_STEPS) --sft-steps $(SFT_STEPS)
+		--pretrain-steps $(PRETRAIN_STEPS) --sft-steps $(SFT_STEPS) --augment $(AUGMENT) --heldout $(HELDOUT) --eval-int
 
 finetune:
 	$(PYTHON) -m llm.train --init models/$(MODEL)/ckpt.pt --out models/$(MODEL) --text $(TEXT) --chat $(CHAT) \
-		--pretrain-steps 0 --sft-steps $(SFT_STEPS)
+		--pretrain-steps 0 --sft-steps $(SFT_STEPS) --augment $(AUGMENT) --heldout $(HELDOUT) --eval-int
 
 export: gb/gen/model_config.h
 
@@ -53,6 +57,9 @@ selftest: export
 
 chat:
 	$(PYTHON) -m llm.chat models/$(MODEL)/ckpt.pt --int
+
+eval:
+	$(PYTHON) -m llm.evaluate models/$(MODEL)/ckpt.pt --chat $(CHAT) --heldout $(HELDOUT) --int --bad
 
 clean:
 	$(MAKE) -C gb clean
