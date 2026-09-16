@@ -71,5 +71,6 @@ grows into the square table at 0x3E00 or WRAM runs into the stack.
   PyBoy does not reproduce this: its built-in boot ROM initialises the CGB
   palettes to visible colours and the emulator test reads the tile map, not
   the pixels, so check anything palette related in SameBoy or on hardware.
-* On a Game Boy Color the ROM runs at normal speed; enabling double speed is
-  a possible future improvement (it would halve the reply time).
+* On a Game Boy Color `main()` switches to double speed (`cpu_fast()`),
+  which halves the time per character; an original Game Boy runs at normal
+  speed. The self-test ROM stays at normal speed so profiles are comparable.
