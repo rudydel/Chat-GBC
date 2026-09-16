@@ -14,8 +14,10 @@ BUILD     = build
 OBJ       ?= $(BUILD)/obj
 EXTRA_CFLAGS ?=
 
-# MBC5 + RAM + battery, ROM size auto, RAM size from the model, DMG + GBC compatible
-LCCFLAGS  = -Wl-yt0x1B -Wm-yoA -Wm-ya$(RAM_BANKS) -Wm-yc -Wm-yn"CHATGBC" -Wl-j -Wl-m
+# MBC5 + RAM + battery, ROM size auto, RAM size from the model, DMG + GBC compatible.
+# -autobank: bankpack places the intro screen (#pragma bank 255, src/intro*.c)
+# in whichever weight bank has room, so the ROM size does not change.
+LCCFLAGS  = -Wl-yt0x1B -Wm-yoA -Wm-ya$(RAM_BANKS) -Wm-yc -Wm-yn"CHATGBC" -Wl-j -Wl-m -autobank
 CFLAGS    = -Wf-MMD -Wf--opt-code-speed -Wf--max-allocs-per-node50000 $(EXTRA_CFLAGS)
 
 SRC_C     = $(wildcard src/*.c) $(wildcard gen/*.c)

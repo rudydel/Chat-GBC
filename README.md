@@ -58,10 +58,15 @@ Load `gb/build/chatgbc.gb` in any Game Boy emulator (SameBoy, BGB, mGBA,
 Gambatte, OpenEmu, PyBoy) or on a flash cartridge. It runs in Game Boy Color
 mode on a GBC / GBC emulator and in monochrome on an original Game Boy.
 
-Controls: **D-pad** move over the keyboard, **A** press a key, **B**
-backspace (or stop a reply), **START** send, **SELECT** toggle greedy /
-sampled replies. Each question starts a fresh context (build with
-`make -C gb EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT` for multi-turn conversations).
+The ROM starts on a title screen with a small menu: **new chat**, **chat
+history** (every question and answer of the session, scrollable) and
+**credits**; **D-pad** up/down and **A** or **START** pick an entry.
+
+Controls in the chat: **D-pad** move over the keyboard, **A** press a key,
+**B** backspace (or stop a reply; with an empty prompt: back to the menu),
+**START** send, **SELECT** toggle greedy / sampled replies. Each question
+starts a fresh context (build with `make -C gb EXTRA_CFLAGS=-Wf-DKEEP_CONTEXT`
+for multi-turn conversations).
 
 ## Rebuilding after the model changed
 
@@ -104,10 +109,10 @@ how to pull Game Boy articles from the web into the training corpus, and
 configs/         model sizes (nano / tiny / micro)
 data/gameboy/    dataset: facts.jsonl, offtopic.jsonl, corpus/*.txt, scripts/fetch_web.py
 docs/            ARCHITECTURE.md, BUILD.md, FINETUNING.md
-gb/              ROM sources: src/ (C + asm), gen/ (generated from the model), build/chatgbc.gb
+gb/              ROM sources: src/ (C + asm, intro screen, chat UI), gen/ (generated from the model), build/chatgbc.gb
 llm/             tokenizer, quant spec, model, data, augment, train, evaluate, export, simulate, chat
 models/          tiny (shipped) and micro checkpoints, configs, integer models, training logs
-tools/           gbdk_setup.sh, fontgen.py, emu_test.py, selftest.py, check_map.py
+tools/           gbdk_setup.sh, fontgen.py, introgen.py, emu_test.py, selftest.py, check_map.py
 ```
 
 ## Honest expectations
