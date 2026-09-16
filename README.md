@@ -121,7 +121,7 @@ tools/           gbdk_setup.sh, fontgen.py, introgen.py, emu_test.py, selftest.p
 
 ## Honest expectations
 
-A 48k parameter character-level model is about the size of a single
+A 62k parameter character-level model is about the size of a single
 attention head of a modern LLM. It memorises the facts it was fine-tuned on,
 copes with some rephrasing (key words, typos, missing question words) thanks
 to the training augmentation, and usually says "sorry, i only know about the
